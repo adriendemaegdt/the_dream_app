@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, Button, FlatList, TouchableOpacity } from 'react-native'
+import { Dimensions } from 'react-native';
 
 import Header_center from '../assets/images/header_center.svg';
 import Header_left from '../assets/images/header_left.svg';
@@ -42,10 +43,11 @@ export default class Header extends React.Component {
 const styles = StyleSheet.create({
 	container: {
         height:140,
+        width :Dimensions.get('window').width,
         flexDirection:"row",
-        backgroundColor:"#23195E"
-		// justifyContent: 'center', 
-		// alignSelf: 'center', 
+        backgroundColor:"#23195E",
+		justifyContent: 'center', 
+		alignSelf: 'center', 
 	},
     left:{
         flex:2,
@@ -70,7 +72,8 @@ const styles = StyleSheet.create({
     },
     vectorLeft:{
         position:'absolute',
-        bottom:0
+        bottom:0, 
+        left:0
 
     },
     vectorCenter:{

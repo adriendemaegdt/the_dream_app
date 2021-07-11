@@ -100,10 +100,10 @@ class OneDream extends React.Component {
         alignItems:'center'
     },
     button_play: {
-        height:50,
-        width:50,
+        height:40,
+        width:40,
         borderRadius: 180,
-        backgroundColor:'#7A40C6',
+        backgroundColor:'#0F143A',
         justifyContent:'center',
         alignItems:'center'
         // marginRight:10
@@ -115,10 +115,10 @@ class OneDream extends React.Component {
         borderStyle: 'solid',
     },
     arrowRight: {
-        borderTopWidth: 10,
+        borderTopWidth: 8,
         borderRightWidth: 0,
-        borderBottomWidth: 10,
-        borderLeftWidth: 14,
+        borderBottomWidth: 8,
+        borderLeftWidth: 12,
         borderTopColor: 'transparent',
         borderRightColor: 'transparent',
         borderBottomColor: 'transparent',

@@ -7,6 +7,7 @@ import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TabNavigator, StackNavigator, createAppContainer } from 'react-navigation'
 
 import Tabs from './navigation/bottom_tabs';
 import OneDream from './components/oneDream';
@@ -14,14 +15,13 @@ import Plus from './components/plus';
 import { render } from 'react-dom';
 import {LinearGradient} from 'expo-linear-gradient'
 import Header from './components/header';
-import JournalScreen from './components/journalScreen';
+import JournalScreen from './screens/journalScreen';
 import NavBar from './components/navBar';
 import QuestionInput from './components/questionInput';
-import Recit from './components/recit';
+import RecitScreen from './screens/RecitScreen';
 
 
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+
 
 const getFonts = () => Font.loadAsync({
   'Harmattan-Bold':require('./assets/fonts/Harmattan-Bold.ttf'),
@@ -48,11 +48,15 @@ export default function App(){
   else{
     return (
       <NavigationContainer>
-        <Tabs></Tabs>
+        <Tabs>
+          
+        </Tabs>
       </NavigationContainer>
     )
   }
 }
+
+
 
 //   const [fontLoaded, setfontLoaded] = useState(false)
 

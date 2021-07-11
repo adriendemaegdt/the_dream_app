@@ -2,13 +2,15 @@ import React from 'react'
 import { StyleSheet, View, Text, Image, Button, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {LinearGradient} from 'expo-linear-gradient'
+import { useNavigation } from '@react-navigation/native';
 
-import JournalScreen from "../components/journalScreen";
+import JournalScreen from "../screens/journalScreen";
 import AnalyseScreen from "../screens/AnalyseScreen";
 import ExplorerScreen from "../screens/ExplorerScreen";
 import ProfilScreen from "../screens/ProfilScreen";
-import Recit from '../components/recit';
+import RecitScreen from '../screens/RecitScreen';
 import Plus from '../components/plus';
+import Home from './HomeStackNav';
 
 import MesRevesIcon from '../assets/images/tab_bar_mes_reves.png'
 import ExplorerIcon from '../assets/images/tab_bar_explorer.svg'
@@ -17,6 +19,7 @@ import ProfilIcon from '../assets/images/tab_bar_profil.png'
 import PlusIcon from '../assets/images/plus_icon.svg'
 import SearchIcon from '../assets/images/search_icon.svg';
 import CompassIcon from '../assets/images/tab_bar_compass.png';
+
 
 
 const Button_plus = ({children, onPress}) => (
@@ -46,6 +49,7 @@ const Button_plus = ({children, onPress}) => (
 const Tab = createBottomTabNavigator()
 const Tabs = () => {
     return(
+
     <Tab.Navigator
     tabBarOptions={{
         showLabel:false,
@@ -54,12 +58,14 @@ const Tabs = () => {
             borderRadius:6,
             backgroundColor:"#252947",
             height:70,
+            // borderTopColor:'red',
             ...styles.shadow
         }
     }
     }
     >
-          <Tab.Screen name="JournalScreen" component={JournalScreen} 
+        
+          <Tab.Screen name="Home" component={Home} 
           options={{
               tabBarIcon:({focused}) => (
                   <View style={{
@@ -84,26 +90,11 @@ const Tabs = () => {
               )
           }} 
           />
+
           <Tab.Screen name="Analyse" component={AnalyseScreen}
           options={{
             tabBarIcon:({focused}) => (
-                // <View>
-                //     <Image
-                //     source = {require('../assets/images/tab_bar_analyse.svg')}
-                //     resizeMode = 'contain'
-                //     style={{
-                //               width: 25,
-                //               height:25,
-                //               tintColor: focused ? "white" : "#8E8FA2",
-                //     }}
-                //     >
 
-                //     </Image>
-                //     <Text>
-
-                //     </Text>
-                // </View>
-                
                 <View style={{
                     alignItems:'center',
                     justifyContent:'center',
@@ -131,13 +122,13 @@ const Tabs = () => {
 
           <Tab.Screen name="Blank" component={JournalScreen}
         //   options={{
-        //     //   tabBarIcon:({focused}) => (
-        //     //       <PlusIcon resizeMode = "contain" style = {{ width:30, height:30, color:'white', top:35}}/>
-        //     //   )
-        //     //   ,
-        //     //   tabBarButton:(props) => (
-        //     //       <Button_plus {...props}/>
-        //     //     // <Plus></Plus>
+        //       tabBarIcon:({focused}) => (
+        //           <PlusIcon resizeMode = "contain" style = {{ width:30, height:30, color:'white', top:35}}/>
+        //       )
+        //       ,
+        //       tabBarButton:(props) => (
+        //           <Plus {...props}/>
+        //         // <Plus></Plus>
         //       )
         //   }}
           />
@@ -145,28 +136,6 @@ const Tabs = () => {
           <Tab.Screen name="Explorer" component={ExplorerScreen}
           options={{
             tabBarIcon:({focused}) => (
-                // <View>
-                //     <Image
-                //     source = {require('../assets/images/tab_bar_compass.png')}
-                //     resizeMode = 'contain'
-                //     style={{
-                //               width: 25,
-                //               height:25,
-                //               tintColor: focused ? "white" : "#8E8FA2",
-                //     }}
-                //     >
-
-                //     </Image>
-                //     <Text
-                //     style={{
-                //                 color: focused ? "white" : "#8E8FA2",
-                //                 fontSize:12,
-                //                 fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
-                //     }}
-                //     >
-                //     Explorer 
-                //     </Text>
-                // </View>
 
                 <View style={{
                     alignItems:'center',
@@ -212,10 +181,13 @@ const Tabs = () => {
                         fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
                     }}>Profil</Text>
                 </View>
+             
             )
         }} 
           />
+        
     </Tab.Navigator>
+   
     )
 }
 const styles = StyleSheet.create({

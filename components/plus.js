@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { withNavigation } from 'react-navigation';
 import { useNavigation } from '@react-navigation/native';
+import RecitScreen from '../screens/RecitScreen';
 
 class Plus extends React.Component {
     
@@ -13,9 +14,9 @@ class Plus extends React.Component {
       return (
         <View style = {styles.button_view}>
             
-            <View 
+            <TouchableOpacity
             style= {styles.button}
-            // onPress={() => {navigation.navigate('recit')} }
+            onPress={() => {navigation.navigate('RecitScreen')} }
             >
                 <LinearGradient
             colors={['#7039B8', '#9654EC']}
@@ -25,7 +26,7 @@ class Plus extends React.Component {
                 <View style = {styles.vertical}></View>
                 <View  style = {styles.horizontal}></View>
                 </LinearGradient>
-            </View>
+            </TouchableOpacity>
         </View>
       )}
     }
@@ -68,9 +69,9 @@ const styles = StyleSheet.create({
     }
     
 })
-export default Plus
-// export default function(props) {
-//     const navigation = useNavigation();
+// export default Plus
+export default function(props) {
+    const navigation = useNavigation();
   
-//     return <Plus {...props} navigation={navigation} />;
-//   }
+    return <Plus {...props} navigation={navigation} />;
+  }

@@ -1,9 +1,15 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, Button, FlatList, TouchableOpacity, TextInput } from 'react-native'
-import ButtonAttribute from './buttonAttributes'
-import OneDream from './oneDream'
-import Header from './header'
-import Plus from './plus'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { withNavigation } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
+
+
+import ButtonAttribute from '../components/buttonAttributes'
+import OneDream from '../components/oneDream'
+import Header from '../components/header'
+import Plus from '../components/plus'
 import { styleSheets } from 'min-document'
 import data_dream from '../data/data_dream'
 
@@ -12,7 +18,7 @@ import SearchIcon from '../assets/images/search_icon.svg';
 class JournalScreen extends React.Component {
 
     render() {
-        console.log(this.props)
+        const { navigation } = this.props;
         return (
             <View style={styles.container}>
                 <Header style = {styles.header}></Header>
@@ -37,9 +43,11 @@ class JournalScreen extends React.Component {
                 />
                 </View>
                 
-                <View style={styles.plus_view}>
+                <TouchableOpacity style={styles.plus_view}
+                // onPress={() => console.log('renerene')}
+                >
                     <Plus></Plus>
-                </View>
+                </TouchableOpacity>
                 
 
             </View>
@@ -50,7 +58,8 @@ const styles = StyleSheet.create({
 
     container:{
         flex:1,
-        backgroundColor:'#0F1538'
+        backgroundColor:'#0F1538', 
+        
     },
 
     header:{
@@ -88,9 +97,17 @@ const styles = StyleSheet.create({
         flex:6,
     },
     plus_view:{
-        backgroundColor:'purple',
+        width:'100%',
+        alignItems:'center',
+        justifyContent:'center',
+        position:'absolute',
+        bottom:60,
         flex:1,
-        alignItems:'center'
+        alignItems:'center', 
+        zIndex:2
+        // backgroundColor:'green',
+        // width:50, 
+        // height:50
         
     },
 
