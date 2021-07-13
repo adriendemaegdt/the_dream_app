@@ -1,6 +1,7 @@
 import React , { useState } from 'react'
-import { StyleSheet, View, Text, TextInput } from 'react-native'
+import { StyleSheet, View, Text, TextInput, KeyboardAvoidingView, Platform  } from 'react-native'
 import { Keyboard } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default class QuestionInput extends React.Component {
@@ -14,43 +15,34 @@ export default class QuestionInput extends React.Component {
       const height = this.props.height
       const title = this.props.title
       const custom_placeholder = this.props.custom_placeholder
+      const multilineAuthorized = this.props.multilineAuthorized
 
       const answer = this.state
     // this.setState({answer: ''})
      handleAnswer = (text) => {
         this.setState({ answer: text })
-        console.log(answer)
      }
         return (
-            <View style= {[styles.container, {height:height}] }>
+            <View style= {[styles.container, {height:height}] } >
                 <View style= {styles.question_view}>
                     
                     <Text style= {styles.question}> {title} </Text>
                 </View>
-                <View  style= {styles.response_view }  >
-                    <TextInput style= {styles.response}
-                    placeholder= {custom_placeholder}
-                    placeholderTextColor={'#5A5D6F'}
-                    multiline = {true}
-                    returnKeyType = {"done"}
-                    autoFocus = {true}
-                    onChangeText={(text) => {handleAnswer(text)}} 
-                    onSubmitEditing={() => Keyboard.dismiss()}
-                    
-                    
-                    // onChangeText={text => onChangeText(text)}
-                    // value={value}
-                    // {...this.props}
-                   
-                    // onChangeText={(text) => {
-                    //     this.setState({ text })
-                    // }}
-                    // onContentSizeChange={(event) => {
-                    //     this.setState({ height: event.nativeEvent.contentSize.height })
-                    // }}
-                    >
-                    </TextInput>
-                </View>
+                
+                <TextInput style= {styles.response}
+                placeholder= {custom_placeholder}
+                placeholderTextColor={'#5A5D6F'}
+                multiline = {multilineAuthorized}
+                returnKeyType = {"done"}
+                autoFocus = {false}
+                onChangeText={(text) => {handleAnswer(text)}} 
+                onSubmitEditing={() => Keyboard.dismiss()}
+                keyboardAppearance = 'dark'
+                
+                
+                >
+                </TextInput>
+                {/* </View> */}
             </View>
         )}
     }
@@ -76,21 +68,20 @@ const styles = StyleSheet.create({
         // top:0,
         color:"white",
         fontFamily:'Harmattan-Bold',
-        fontSize:24,
+        fontSize:30,
         // lineHeight:1
     },
-    response_view:{
+    response:{
+        fontFamily:'Harmattan-Bold', 
+        fontSize:20, 
+        color:'white',
         backgroundColor: '#252947',
         borderRadius:12,
         width: '85%',
         // height: height,
         flexDirection:'row',
-        flex:3
-    }, 
-    response:{
-        fontFamily:'Harmattan-Regular', 
-        fontSize:20, 
-        color:'white'
+        flex:3, 
+        justifyContent:'center'
     }
 })
 

@@ -86,6 +86,9 @@ const styles = StyleSheet.create({
     },
     search_input:{
         flex:4,
+        fontFamily:'Harmattan-Regular',
+        color:'white',
+        fontSize:20
     },
  
 

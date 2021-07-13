@@ -1,28 +1,33 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, ScrollViewComponent } from 'react-native'
+import { StyleSheet, View, Text, TextInput,KeyboardAvoidingView,ScrollView} from 'react-native'
 import Header from '../components/header'
 import QuestionInput from '../components/questionInput'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { DateTimePickerComponent } from '../components/dateTimePicker';
 
 
 
 class RecitScreen extends React.Component {
     render() {
-      console.log("yo")
+      
       return (
-       <View style={styles.container}>
-           
-           <QuestionInput height = {100} title = "Titre" custom_placeholder = "Ex: Donnez un titre à votre reve..." ></QuestionInput>
-           {/* <QuestionInput height = {100} title = "Titre" custom_placeholder = "Ex: Donnez un titre à votre reve..." ></QuestionInput> */}
-           <QuestionInput height = {200} title = "Racontez votre rêve" custom_placeholder = "Ex: Racontez votre reve..." ></QuestionInput>
-          
-            {/* <Header></Header> */}
-       </View>
+        <KeyboardAvoidingView style = {{flex:1}}behavior={Platform.OS === "ios" ? "position" : "position"} keyboardVerticalOffset={-70}>
+            <ScrollView style={styles.container}>
+                
+                <DateTimePickerComponent></DateTimePickerComponent>
+                
+                <QuestionInput multilineAuthorized = {false} height = {120} title = "Titre" custom_placeholder = "Ex: Donnez un titre à votre reve..." ></QuestionInput>
+                <QuestionInput  multilineAuthorized = {true} height = {200} title = "Racontez votre rêve" custom_placeholder = "Ex: Racontez votre reve..." ></QuestionInput>
+                
+            </ScrollView>
+        </KeyboardAvoidingView>
       )}
     }
 const styles = StyleSheet.create({
     container: {
-        height:"100%", 
-        backgroundColor:"#0F1538"
+        height:2000, 
+        backgroundColor:"#0F1538", 
+        // justifyContent: 'space-around'
 
     }
 
