@@ -6,6 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { withNavigation } from 'react-navigation';
 import { useNavigation } from '@react-navigation/native';
 import RecitScreen from '../screens/RecitScreen';
+import DetailScreen from '../screens/DetailScreen';
+import NewDream from '../navigation/NewDreamNav';
 
 class Plus extends React.Component {
     
@@ -16,7 +18,7 @@ class Plus extends React.Component {
             
             <TouchableOpacity
             style= {styles.button}
-            onPress={() => {navigation.navigate('RecitScreen')} }
+            onPress={() => {navigation.navigate('NewDream')} }
             >
                 <LinearGradient
             colors={['#7039B8', '#9654EC']}
@@ -32,10 +34,11 @@ class Plus extends React.Component {
     }
 const styles = StyleSheet.create({
     button_view:{
+        top:-30,
         justifyContent:'center',
         alignItems:'center',
-        height:65,
-        width:65,
+        height:70,
+        width:70,
         
     },
     button: {

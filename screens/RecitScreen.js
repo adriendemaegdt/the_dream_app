@@ -11,13 +11,24 @@ class RecitScreen extends React.Component {
     render() {
       
       return (
-        <KeyboardAvoidingView style = {{flex:1}}behavior={Platform.OS === "ios" ? "position" : "position"} keyboardVerticalOffset={-70}>
+        <KeyboardAvoidingView style = {{flex:1}}behavior={Platform.OS === "ios" ? "position" : "position"}  keyboardVerticalOffset={-200}>
             <ScrollView style={styles.container}>
                 
                 <DateTimePickerComponent></DateTimePickerComponent>
                 
-                <QuestionInput multilineAuthorized = {false} height = {120} title = "Titre" custom_placeholder = "Ex: Donnez un titre à votre reve..." ></QuestionInput>
-                <QuestionInput  multilineAuthorized = {true} height = {200} title = "Racontez votre rêve" custom_placeholder = "Ex: Racontez votre reve..." ></QuestionInput>
+                <QuestionInput 
+                multilineAuthorized = {false} 
+                height = {120} 
+                title = "Titre" 
+                custom_placeholder = "Ex: Donnez un titre à votre reve..." >
+                </QuestionInput>
+                <QuestionInput 
+                multilineAuthorized = {true} 
+                height = {200} 
+                title = "Racontez votre rêve" 
+                custom_placeholder = "Ex: Racontez votre reve..." >
+                    
+                </QuestionInput>
                 
             </ScrollView>
         </KeyboardAvoidingView>

@@ -10,6 +10,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabNavigator, StackNavigator, createAppContainer } from 'react-navigation'
 
 import Tabs from './navigation/bottom_tabs';
+import NewDream from './navigation/NewDreamNav';
+
 import OneDream from './components/oneDream';
 import Plus from './components/plus';
 import { render } from 'react-dom';
@@ -19,9 +21,28 @@ import JournalScreen from './screens/journalScreen';
 import NavBar from './components/navBar';
 import QuestionInput from './components/questionInput';
 import RecitScreen from './screens/RecitScreen';
+import DetailScreen from './screens/DetailScreen';
+import InterpretationScreen from './screens/InterpretationScreen';
+// REDUX
+import { Provider } from 'react-redux'
+import Store from './Store/configureStore'
+// FIREBASE
+import firebase from 'firebase/app'
+import 'firebase/firestore';
 
 
+var firebaseConfig = {
+  apiKey: "AIzaSyDTzGLl_JO7majGwKcqedCIYD5gM5cPf5Y",
+  authDomain: "appdream.firebaseapp.com",
+  projectId: "appdream",
+  storageBucket: "appdream.appspot.com",
+  messagingSenderId: "422707936108",
+  appId: "1:422707936108:web:9008db775ca2ee21d61149"
+};
 
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const getFonts = () => Font.loadAsync({
   'Harmattan-Bold':require('./assets/fonts/Harmattan-Bold.ttf'),
@@ -31,7 +52,7 @@ const getFonts = () => Font.loadAsync({
 
 
 export default function App(){
-
+console.log(Store)
   const [fontsLoaded, setFontsLoaded] = useState(false)
 
   if(!fontsLoaded){
@@ -47,11 +68,18 @@ export default function App(){
   }
   else{
     return (
-      <NavigationContainer>
-        <Tabs>
-          
-        </Tabs>
-      </NavigationContainer>
+      // <InterpretationScreen></InterpretationScreen>
+      // <DetailScreen></DetailScreen>
+      // <RecitScreen></RecitScreen>
+      <Provider store = {Store}>
+        {/* <JournalScreen></JournalScreen> */}
+        <NavigationContainer>
+          <Tabs>
+            
+          </Tabs>
+        </NavigationContainer>
+      </Provider>
+
     )
   }
 }

@@ -9,16 +9,18 @@ import { useNavigation } from '@react-navigation/native';
 import ButtonAttribute from '../components/buttonAttributes'
 import OneDream from '../components/oneDream'
 import Header from '../components/header'
-import Plus from '../components/plus'
 import { styleSheets } from 'min-document'
-import data_dream from '../data/data_dream'
+
 
 import SearchIcon from '../assets/images/search_icon.svg';
+
+import { connect } from 'react-redux'
 
 class JournalScreen extends React.Component {
 
     render() {
-        const { navigation } = this.props;
+        console.log(this.props)
+        // const { navigation } = this.props;
         return (
             <View style={styles.container}>
                 <Header style = {styles.header}></Header>
@@ -37,17 +39,17 @@ class JournalScreen extends React.Component {
                 <View style={styles.flatlist_container}>
                     <FlatList 
                     contentContainerStyle={styles.flatlist}
-                    data = {data_dream}
+                    data = {this.props.myDreams}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem = {({item}) => <OneDream dream_infos = {item} /> }
                 />
                 </View>
                 
-                <TouchableOpacity style={styles.plus_view}
+                {/* <TouchableOpacity style={styles.plus_view}
                 // onPress={() => console.log('renerene')}
                 >
                     <Plus></Plus>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 
 
             </View>
@@ -115,5 +117,12 @@ const styles = StyleSheet.create({
     },
 
 })
-export default JournalScreen
+
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        myDreams: state.myDreams
+    }
+  }
+export default connect(mapStateToProps)(JournalScreen)
 

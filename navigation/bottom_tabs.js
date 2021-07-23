@@ -10,7 +10,7 @@ import ExplorerScreen from "../screens/ExplorerScreen";
 import ProfilScreen from "../screens/ProfilScreen";
 import RecitScreen from '../screens/RecitScreen';
 import Plus from '../components/plus';
-import Home from './HomeStackNav';
+import NewDream from './NewDreamNav';
 
 import MesRevesIcon from '../assets/images/tab_bar_mes_reves.png'
 import ExplorerIcon from '../assets/images/tab_bar_explorer.svg'
@@ -22,11 +22,15 @@ import CompassIcon from '../assets/images/tab_bar_compass.png';
 
 
 
-const Button_plus = ({children, onPress}) => (
+const Button_plus = ({children, onPress, navigation}) => (
+    // const navigation = useNavigation();
+    // navigation.navigate('NewDream')
+// console.log(props)
+<View style = {styles.button_view}>
     <TouchableOpacity 
-    onPress={onPress}
+    onPress={() => {console.log('rey')}}
     style={{
-        top:-50,
+        top:-30,
         justifyContent:"center",
         alignItems:'center',
     }}
@@ -38,16 +42,18 @@ const Button_plus = ({children, onPress}) => (
             style={styles.gradient}
             >
                 
-                <View style = {styles.vertical}></View>
-                <View  style = {styles.horizontal}></View>
+                {/* <View style = {styles.vertical}></View>
+                <View  style = {styles.horizontal}></View> */}
             </LinearGradient>
         </View>
     </TouchableOpacity>
+    </View>
 )
 
 
+
 const Tab = createBottomTabNavigator()
-const Tabs = () => {
+const Tabs = ({navigation}) => {
     return(
 
     <Tab.Navigator
@@ -60,12 +66,14 @@ const Tabs = () => {
             height:70,
             // borderTopColor:'red',
             ...styles.shadow
-        }
+        }, 
+        
+
     }
     }
     >
         
-          <Tab.Screen name="Home" component={Home} 
+          <Tab.Screen name="JournalScreen" component={JournalScreen} 
           options={{
               tabBarIcon:({focused}) => (
                   <View style={{
@@ -120,17 +128,30 @@ const Tabs = () => {
         }} 
           />
 
-          <Tab.Screen name="Blank" component={JournalScreen}
-        //   options={{
-        //       tabBarIcon:({focused}) => (
-        //           <PlusIcon resizeMode = "contain" style = {{ width:30, height:30, color:'white', top:35}}/>
-        //       )
-        //       ,
-        //       tabBarButton:(props) => (
-        //           <Plus {...props}/>
-        //         // <Plus></Plus>
-        //       )
-        //   }}
+          <Tab.Screen name="NewDream" component={NewDream}
+          
+          
+          options={{
+            //   tabBarVisible:false,
+              tabBarIcon:({focused}) => (
+                  <PlusIcon resizeMode = "contain" style = {{ width:30, height:30, color:'white', top:35}}/>
+              )
+              ,
+              tabBarButton:(props) => (
+                //   <Button_plus {...props} ></Button_plus>
+                  
+                //   <Plus {...props}/>
+                <Plus></Plus>
+              )
+              
+          }}
+          listeners={({navigation}) => ({
+              tabPress: event => {
+                  event.preventDefault();
+                  navigation.navigate("NewDream")
+              }
+          })}
+
           />
 
           <Tab.Screen name="Explorer" component={ExplorerScreen}
@@ -194,6 +215,23 @@ const styles = StyleSheet.create({
     shadow:{
         shadowColor:'blue'
     },
+    button_view:{
+        top:0,
+        justifyContent:'center',
+        alignItems:'center',
+        height:70,
+        width:70,
+        
+    },
+    button: {
+        width:'100%',
+        height:'100%',
+        borderRadius: 180,
+        // backgroundColor:'#7A40C6',
+        justifyContent:'center',
+        alignItems:'center',
+    },
+
     vertical:{
         backgroundColor:'#F8F5FE',
         height:'45%',

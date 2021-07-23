@@ -11,7 +11,7 @@ export default class QuestionInput extends React.Component {
         }
         componentDidMount() { }
     render() {
-
+      const marginTop = this.props.marginTop
       const height = this.props.height
       const title = this.props.title
       const custom_placeholder = this.props.custom_placeholder
@@ -23,7 +23,7 @@ export default class QuestionInput extends React.Component {
         this.setState({ answer: text })
      }
         return (
-            <View style= {[styles.container, {height:height}] } >
+            <View style= {[styles.container, {height:height}, {marginTop: marginTop}] } >
                 <View style= {styles.question_view}>
                     
                     <Text style= {styles.question}> {title} </Text>
@@ -39,10 +39,9 @@ export default class QuestionInput extends React.Component {
                 onSubmitEditing={() => Keyboard.dismiss()}
                 keyboardAppearance = 'dark'
                 
-                
                 >
                 </TextInput>
-                {/* </View> */}
+
             </View>
         )}
     }
@@ -53,13 +52,11 @@ const styles = StyleSheet.create({
         // justifyContent:'center',
         // alignItems:'center',
         padding:10,
-        // backgroundColor:'grey',
-        // borderBottomColor:'red'
 
     },
     question_view:{
         
-        paddingRight:"25%",
+        paddingRight:"15%",
         
         // flex:2
     },
@@ -69,7 +66,7 @@ const styles = StyleSheet.create({
         color:"white",
         fontFamily:'Harmattan-Bold',
         fontSize:30,
-        // lineHeight:1
+        lineHeight:35
     },
     response:{
         fontFamily:'Harmattan-Bold', 
@@ -77,7 +74,7 @@ const styles = StyleSheet.create({
         color:'white',
         backgroundColor: '#252947',
         borderRadius:12,
-        width: '85%',
+        width: '95%',
         // height: height,
         flexDirection:'row',
         flex:3, 
