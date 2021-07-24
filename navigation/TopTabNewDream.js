@@ -21,13 +21,13 @@ import { Dimensions } from 'react-native';
 const topTab = createMaterialTopTabNavigator();
 
 
-const NewDream = () => {
+const TopTabNewDream = () => {
 
 
-  
+
   return(
+
     <topTab.Navigator
-    
     screenOptions={{
       headerStyle: { backgroundColor: '#633689' },
       headerTintColor: '#fff',
@@ -86,26 +86,8 @@ const NewDream = () => {
       }}
       />
 
-      {/* <Stack.Screen name="RecitScreen" component={RecitScreen}
-      options={{
-        title:'Mon rêve',
-
-        // headerTitle: () => <Header/>,
-        headerStyle: {
-          backgroundColor: '#23195E',
-          height:100
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontSize:35,
-          fontFamily:'Rancho'
-         
-        },
-      }}
-      /> */}
-
 
     </topTab.Navigator>
     )
 }
-export default NewDream 
+export default TopTabNewDream 

@@ -9,7 +9,10 @@ import { DateTimePickerComponent } from '../components/dateTimePicker';
 
 class RecitScreen extends React.Component {
     render() {
-      
+const clearInputs = () => {
+    this.title.clearInput()
+}
+
       return (
         <KeyboardAvoidingView style = {{flex:1}}behavior={Platform.OS === "ios" ? "position" : "position"}  keyboardVerticalOffset={-200}>
             <ScrollView style={styles.container}>
@@ -20,7 +23,10 @@ class RecitScreen extends React.Component {
                 multilineAuthorized = {false} 
                 height = {120} 
                 title = "Titre" 
-                custom_placeholder = "Ex: Donnez un titre à votre reve..." >
+                clearInput = {clearInput}
+                custom_placeholder = "Ex: Donnez un titre à votre reve..."
+                ref = 'title'
+                >
                 </QuestionInput>
                 <QuestionInput 
                 multilineAuthorized = {true} 

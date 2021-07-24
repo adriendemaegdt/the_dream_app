@@ -10,7 +10,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabNavigator, StackNavigator, createAppContainer } from 'react-navigation'
 
 import Tabs from './navigation/bottom_tabs';
-import NewDream from './navigation/NewDreamNav';
+import NewDream from './navigation/TopTabNewDream';
+import NestedStackNavigator from './navigation/StackNewDream';
 
 import OneDream from './components/oneDream';
 import Plus from './components/plus';

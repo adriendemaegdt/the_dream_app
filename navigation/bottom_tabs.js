@@ -9,16 +9,12 @@ import AnalyseScreen from "../screens/AnalyseScreen";
 import ExplorerScreen from "../screens/ExplorerScreen";
 import ProfilScreen from "../screens/ProfilScreen";
 import RecitScreen from '../screens/RecitScreen';
-import Plus from '../components/plus';
-import NewDream from './NewDreamNav';
 
-import MesRevesIcon from '../assets/images/tab_bar_mes_reves.png'
-import ExplorerIcon from '../assets/images/tab_bar_explorer.svg'
-import AnalyseIcon from '../assets/images/tab_bar_analyse.png'
-import ProfilIcon from '../assets/images/tab_bar_profil.png'
+import Plus from '../components/plus';
+import TopTabNewDream from './TopTabNewDream';
+import StackNewDream from './StackNewDream';
 import PlusIcon from '../assets/images/plus_icon.svg'
-import SearchIcon from '../assets/images/search_icon.svg';
-import CompassIcon from '../assets/images/tab_bar_compass.png';
+
 
 
 
@@ -128,10 +124,11 @@ const Tabs = ({navigation}) => {
         }} 
           />
 
-          <Tab.Screen name="NewDream" component={NewDream}
+          <Tab.Screen name="TopTabNewDream" component={StackNewDream}
           
           
           options={{
+             title: 'My home' ,
             //   tabBarVisible:false,
               tabBarIcon:({focused}) => (
                   <PlusIcon resizeMode = "contain" style = {{ width:30, height:30, color:'white', top:35}}/>
@@ -148,7 +145,7 @@ const Tabs = ({navigation}) => {
           listeners={({navigation}) => ({
               tabPress: event => {
                   event.preventDefault();
-                  navigation.navigate("NewDream")
+                  navigation.navigate("TopTabNewDream")
               }
           })}
 

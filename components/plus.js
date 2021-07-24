@@ -7,7 +7,8 @@ import { withNavigation } from 'react-navigation';
 import { useNavigation } from '@react-navigation/native';
 import RecitScreen from '../screens/RecitScreen';
 import DetailScreen from '../screens/DetailScreen';
-import NewDream from '../navigation/NewDreamNav';
+import TopTabNewDream from '../navigation/TopTabNewDream';
+import StackNewDream from '../navigation/StackNewDream';
 
 class Plus extends React.Component {
     
@@ -18,7 +19,7 @@ class Plus extends React.Component {
             
             <TouchableOpacity
             style= {styles.button}
-            onPress={() => {navigation.navigate('NewDream')} }
+            onPress={() => {navigation.navigate('TopTabNewDream')} }
             >
                 <LinearGradient
             colors={['#7039B8', '#9654EC']}

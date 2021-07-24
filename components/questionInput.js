@@ -1,4 +1,4 @@
-import React , { useState } from 'react'
+import React , { useState, useRef, useCallback } from 'react'
 import { StyleSheet, View, Text, TextInput, KeyboardAvoidingView, Platform  } from 'react-native'
 import { Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -17,11 +17,13 @@ export default class QuestionInput extends React.Component {
       const custom_placeholder = this.props.custom_placeholder
       const multilineAuthorized = this.props.multilineAuthorized
 
-      const answer = this.state
-    // this.setState({answer: ''})
-     handleAnswer = (text) => {
-        this.setState({ answer: text })
-     }
+      const answer = this.state.answer
+      
+      const clearInput = ()=>{
+          return this.input.clear()
+      }
+     
+    
         return (
             <View style= {[styles.container, {height:height}, {marginTop: marginTop}] } >
                 <View style= {styles.question_view}>
@@ -34,10 +36,15 @@ export default class QuestionInput extends React.Component {
                 placeholderTextColor={'#5A5D6F'}
                 multiline = {multilineAuthorized}
                 returnKeyType = {"done"}
+                
                 autoFocus = {false}
-                onChangeText={(text) => {handleAnswer(text)}} 
+                onChangeText={(text) => this.setState({ answer: text })}
                 onSubmitEditing={() => Keyboard.dismiss()}
                 keyboardAppearance = 'dark'
+                value = {answer}
+                ref='input'
+                // {input => { this.textInput = input }}
+
                 
                 >
                 </TextInput>
