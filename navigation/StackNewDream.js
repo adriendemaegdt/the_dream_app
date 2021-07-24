@@ -8,17 +8,14 @@ import { TabNavigator, StackNavigator, createAppContainer } from 'react-navigati
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 // import Tabs from './bottom_tabs';
-import NewDream from './TopTabNewDream';
+import TopTabNewDream from './TopTabNewDream';
+
 
 const Stack = createStackNavigator()
 
 
 function StackNewDream() {
 
-  // const inputRef = useRef()
-  const clearText = useCallback(()=> {
-    this._input.setNativeProps({text:''})
-  }, [] )
 
   
     return (
@@ -26,7 +23,7 @@ function StackNewDream() {
        
         <Stack.Screen 
             name="Mon reve" 
-            component={NewDream}
+            component={TopTabNewDream}
             options={{
                 headerTitle: 'Mon rêve',
               
@@ -39,7 +36,6 @@ function StackNewDream() {
                 ),
                 headerLeft: () => (
                   <Button
-                    onPress={clearText}
                     title="Annuler"
                     color="pink"
                   />

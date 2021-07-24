@@ -1,21 +1,15 @@
 import React, {useState} from 'react';
-import {View, Button, Platform, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Platform, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import RNDateTimePicker from '@react-native-community/datetimepicker'
-import ArrowDown from '../assets/images/down_arrow.png';
 
 
-export const DateTimePickerComponent = () => {
+export const DateTimePickerComponent = (props) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show_android, setShowAndroid] = useState(false);
   const [show_ios, setShowIOS] = useState(true);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowAndroid(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
+  const onChange = props.onChange
 
   const showMode = (currentMode) => {
     setShowIOS(true);

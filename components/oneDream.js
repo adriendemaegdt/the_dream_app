@@ -1,14 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, Button, FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native'
 import ButtonAttribute from './buttonAttributes'
-import data_dream from '../data/data_dream'
 
 class OneDream extends React.Component {
 
     render() {
 
         const dream_infos = this.props.dream_infos
-        // console.log(dream_infos)
         return (
     <View style={styles.oneDream}>
         <View style= {styles.date}>
@@ -23,7 +21,6 @@ class OneDream extends React.Component {
                     <Text style={styles.description_text}  numberOfLines={2} ellipsizeMode= "tail" >{dream_infos.overview}</Text>
                     <View style= {styles.button_play_view}>
                         <TouchableOpacity
-                            onPress={console.log('hey')}
                             style={styles.button_play}>
                             <View style={[styles.triangle,styles.arrowRight]}></View>
                         </TouchableOpacity>

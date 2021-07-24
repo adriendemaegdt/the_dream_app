@@ -19,12 +19,9 @@ import PlusIcon from '../assets/images/plus_icon.svg'
 
 
 const Button_plus = ({children, onPress, navigation}) => (
-    // const navigation = useNavigation();
-    // navigation.navigate('NewDream')
-// console.log(props)
+
 <View style = {styles.button_view}>
     <TouchableOpacity 
-    onPress={() => {console.log('rey')}}
     style={{
         top:-30,
         justifyContent:"center",

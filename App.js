@@ -53,7 +53,7 @@ const getFonts = () => Font.loadAsync({
 
 
 export default function App(){
-console.log(Store)
+
   const [fontsLoaded, setFontsLoaded] = useState(false)
 
   if(!fontsLoaded){
@@ -69,9 +69,7 @@ console.log(Store)
   }
   else{
     return (
-      // <InterpretationScreen></InterpretationScreen>
-      // <DetailScreen></DetailScreen>
-      // <RecitScreen></RecitScreen>
+
       <Provider store = {Store}>
         {/* <JournalScreen></JournalScreen> */}
         <NavigationContainer>
@@ -84,48 +82,3 @@ console.log(Store)
     )
   }
 }
-
-
-
-//   const [fontLoaded, setfontLoaded] = useState(false)
-
-//   if (!fontLoaded){
-//     return 
-//     <AppLoading 
-//       startAsync={fetchFont}
-//       onError = {() => console.log('error loading font')}
-//       onFinish = {() =>{
-//         setfontLoaded(true)
-      
-//       }}
-//     />
-//   }
-
-
-
-
-
-
-  // constructor() {
-  //   super();
-  //   this.state={
-  //     fontLoaded : false 
-  //   };
-  // }
-  // componentDidMount(){
-  //   Font.loadAsync({
-  //     'Harmattan-Bold':require('./assets/fonts/Harmattan-Bold.ttf'),
-  //     'Harmattan-Regular': require('./assets/fonts/Harmattan-Regular.ttf'),
-  //   });
-  //   this.setState({fontLoaded : true})
-  // }
-
-  // const [loaded] = useFonts({
-  //   HarmattanBold: require('./assets/fonts/Harmattan-Bold.ttf'),
-  //   HarmattanRegular: require('./assets/fonts/Harmattan-Regular.ttf'),
-  // });
-  
-    
-
-
-

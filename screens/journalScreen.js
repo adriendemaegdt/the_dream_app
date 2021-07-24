@@ -1,16 +1,8 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, Button, FlatList, TouchableOpacity, TextInput } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { withNavigation } from 'react-navigation';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, FlatList, TextInput } from 'react-native'
 
-
-import ButtonAttribute from '../components/buttonAttributes'
 import OneDream from '../components/oneDream'
 import Header from '../components/header'
-import { styleSheets } from 'min-document'
-
 
 import SearchIcon from '../assets/images/search_icon.svg';
 
@@ -119,7 +111,6 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         myDreams: state.myDreams
     }

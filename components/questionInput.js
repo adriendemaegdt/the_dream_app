@@ -9,14 +9,21 @@ export default class QuestionInput extends React.Component {
             super(props);
             this.state = {answer:""};
         }
-        componentDidMount() { }
+    
+    inputChange() {
+        const field = this.props.name
+        const value = this.state.answer
+        this.props.onChange(field,value)
+     }
+
     render() {
       const marginTop = this.props.marginTop
       const height = this.props.height
       const title = this.props.title
       const custom_placeholder = this.props.custom_placeholder
       const multilineAuthorized = this.props.multilineAuthorized
-
+      
+      
       const answer = this.state.answer
       
       const clearInput = ()=>{
@@ -38,8 +45,11 @@ export default class QuestionInput extends React.Component {
                 returnKeyType = {"done"}
                 
                 autoFocus = {false}
-                onChangeText={(text) => this.setState({ answer: text })}
-                onSubmitEditing={() => Keyboard.dismiss()}
+                onChangeText={(text) => {this.setState({ answer: text })}}
+                onSubmitEditing={() => {
+                    Keyboard.dismiss()
+                }}
+                onEndEditing={() =>this.inputChange()}
                 keyboardAppearance = 'dark'
                 value = {answer}
                 ref='input'

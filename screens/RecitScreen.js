@@ -1,39 +1,49 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput,KeyboardAvoidingView,ScrollView} from 'react-native'
-import Header from '../components/header'
+import { StyleSheet,KeyboardAvoidingView,ScrollView} from 'react-native'
 import QuestionInput from '../components/questionInput'
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { DateTimePickerComponent } from '../components/dateTimePicker';
+import {connect} from 'react-redux'
 
 
 
 class RecitScreen extends React.Component {
-    render() {
-const clearInputs = () => {
-    this.title.clearInput()
-}
 
+    saveInput = (field,value) => {
+        const action = {type : 'SAVE_VALUE' ,value : {[field] : value}}
+        this.props.dispatch(action)
+    }
+
+    saveDate = (event,value) => {
+        this.saveInput('date',value)
+    }
+
+    render() {
+        
       return (
         <KeyboardAvoidingView style = {{flex:1}}behavior={Platform.OS === "ios" ? "position" : "position"}  keyboardVerticalOffset={-200}>
             <ScrollView style={styles.container}>
                 
-                <DateTimePickerComponent></DateTimePickerComponent>
+                <DateTimePickerComponent onChange = {this.saveDate.bind(this)}></DateTimePickerComponent>
                 
                 <QuestionInput 
                 multilineAuthorized = {false} 
                 height = {120} 
                 title = "Titre" 
-                clearInput = {clearInput}
                 custom_placeholder = "Ex: Donnez un titre à votre reve..."
                 ref = 'title'
+                name = 'title'
+                onChange = {this.saveInput.bind(this)}
                 >
                 </QuestionInput>
                 <QuestionInput 
                 multilineAuthorized = {true} 
                 height = {200} 
                 title = "Racontez votre rêve" 
-                custom_placeholder = "Ex: Racontez votre reve..." >
-                    
+                custom_placeholder = "Ex: Racontez votre reve..." 
+                ref = 'story'
+                name = 'story'
+                onChange = {this.saveInput.bind(this)}
+                >
                 </QuestionInput>
                 
             </ScrollView>
@@ -50,4 +60,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default RecitScreen
+export default connect()(RecitScreen)

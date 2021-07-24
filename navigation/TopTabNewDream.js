@@ -1,21 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TabNavigator, StackNavigator, createAppContainer } from 'react-navigation'
+import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import JournalScreen from '../screens/journalScreen';
 import RecitScreen from '../screens/RecitScreen';
 import DetailScreen from '../screens/DetailScreen';
 import InterpretationScreen from '../screens/InterpretationScreen';
 
-import { withNavigation } from 'react-navigation';
-import { useNavigation } from '@react-navigation/native';
-import { processFontFamily } from 'expo-font';
-import Header from '../components/header';
-import { Dimensions } from 'react-native';
 
 
 const topTab = createMaterialTopTabNavigator();
@@ -52,15 +41,7 @@ const TopTabNewDream = () => {
       <topTab.Screen name="RecitScreen" component={RecitScreen}
       
       options={{
-        headerTitle: 'Mon rêve',
-        headerRight:()=> (
-
-          <Button 
-          onPress= {() => alert('This is a button!')}
-          title="Save"
-          color="red"
-          />
-        ),
+        
         title: 'Mon Récit',
         headerShown:true,
         animationEnabled: true,

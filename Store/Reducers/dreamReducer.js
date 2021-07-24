@@ -2,20 +2,22 @@
 
 import data_dream from "../../data/data_dream"
 
-const initialState = { myDreams: data_dream }
+const initialState = { 
+    myDreams: data_dream,
+    newDream: {}
+}
 
 function addDream(state = initialState, action) {
   let nextState
   switch (action.type) {
-    case 'ADD_DREAM':
-        console.log('create one dream')
+    case 'SAVE_VALUE':
+        const key = Object.keys(action.value)[0]
+        const value = action.value[key]
+        nextState = {...state}
+        nextState.newDream[key] = value
+        console.log(nextState)
         return nextState
-    case 'UPDATE_DREAM':
-        console.log('update one dream')
-        return nextState
-    case 'DELETE_DREAM':
-        console.log('delete one dream')
-        return nextState
+
   default:
     return state
   }
