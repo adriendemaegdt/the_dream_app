@@ -1,48 +1,79 @@
 
-import React, { useState, useCallback, useRef} from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TabNavigator, StackNavigator, createAppContainer } from 'react-navigation'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Button } from 'react-native';
+import Header from '../components/customHeaderStack';
 
 // import Tabs from './bottom_tabs';
 import TopTabNewDream from './TopTabNewDream';
+import Tabs from './bottom_tabs';
+import {connect} from 'react-redux'
+
 
 
 const Stack = createStackNavigator()
 
 
-function StackNewDream() {
-
-
+function StackNewDream(props) {
   
+  const clearNewDream = () => {
+    const action = {type : 'CLEAR_DREAM' ,value : {}}
+    props.dispatch(action)
+    
+  }
+
+  const saveNewDream = (navigation) => {
+    const action = {type : 'SAVE_DREAM' ,value : props.newDream}
+    props.dispatch(action)
+    navigation.navigate('Home')
+  }
+
     return (
-      <Stack.Navigator>
-       
+      <Stack.Navigator
+      mode = 'modal'
+      headerMode='screen'
+      headerTitle = 'Mon rêve'
+      screenOptions={({route, navigation}) => ({
+        headerRight: () => (
+          <Button
+            
+            onPress={() => saveNewDream(navigation)}
+            title="Sauvegarder"
+            color="blue"
+          /> ),
+        headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+
+      })}
+
+      
+      >
+       <Stack.Screen
+          name='Home'
+          component={Tabs}
+        ></Stack.Screen>
+
         <Stack.Screen 
-            name="Mon reve" 
-            component={TopTabNewDream}
-            options={{
-                headerTitle: 'Mon rêve',
-              
-                headerRight: () => (
-                  <Button
-                    onPress={() => alert('This is a button!')}
-                    title="Sauvegarder"
-                    color="green"
-                  />
-                ),
-                headerLeft: () => (
-                  <Button
-                    title="Annuler"
-                    color="pink"
-                  />
-                ),
-              }}
-            />
+          name="myDream" 
+          component={TopTabNewDream}
+        //   options={ () => ({
+            
+        //     headerTitle: () => <Header title= 'Mon reve'/>
+          
+        //   })
+        // }
+          
+          />
+        
       </Stack.Navigator>
     );
   }
-export default StackNewDream
+
+  const mapStateToProps = (state) => {
+    return {
+      newDream: state.newDream
+    }
+}
+export default connect(mapStateToProps)(StackNewDream)

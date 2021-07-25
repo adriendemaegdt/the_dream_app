@@ -1,13 +1,12 @@
-import React , { useState, useRef, useCallback } from 'react'
-import { StyleSheet, View, Text, TextInput, KeyboardAvoidingView, Platform  } from 'react-native'
+import React from 'react'
+import { StyleSheet, View, Text, TextInput } from 'react-native'
 import { Keyboard } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {connect} from 'react-redux' 
 
-
-export default class QuestionInput extends React.Component {
+class QuestionInput extends React.Component {
     constructor(props) {
             super(props);
-            this.state = {answer:""};
+            this.state = {answer:''}
         }
     
     inputChange() {
@@ -15,20 +14,28 @@ export default class QuestionInput extends React.Component {
         const value = this.state.answer
         this.props.onChange(field,value)
      }
-
+    
+    
+    componentDidMount(){
+        if (this.props.newDream){
+            this.state.answer = this.props.newDream[this.props.name] || ""
+        }
+        else {
+            this.state.answer = ""
+        }
+    }
     render() {
+          
+     
+        
+        
       const marginTop = this.props.marginTop
       const height = this.props.height
       const title = this.props.title
       const custom_placeholder = this.props.custom_placeholder
       const multilineAuthorized = this.props.multilineAuthorized
-      
-      
       const answer = this.state.answer
       
-      const clearInput = ()=>{
-          return this.input.clear()
-      }
      
     
         return (
@@ -53,6 +60,7 @@ export default class QuestionInput extends React.Component {
                 keyboardAppearance = 'dark'
                 value = {answer}
                 ref='input'
+                
                 // {input => { this.textInput = input }}
 
                 
@@ -99,3 +107,10 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = (state) => {
+    return {
+      newDream: state.newDream
+    }
+}
+
+export default connect (mapStateToProps)(QuestionInput)

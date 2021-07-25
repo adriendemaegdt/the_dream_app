@@ -20,7 +20,11 @@ class RecitScreen extends React.Component {
     render() {
         
       return (
-        <KeyboardAvoidingView style = {{flex:1}}behavior={Platform.OS === "ios" ? "position" : "position"}  keyboardVerticalOffset={-200}>
+        <KeyboardAvoidingView 
+            style = {{flex:1}}
+            behavior={Platform.OS === "ios" ? "position" : "position"}  
+            keyboardVerticalOffset={-200}>
+
             <ScrollView style={styles.container}>
                 
                 <DateTimePickerComponent onChange = {this.saveDate.bind(this)}></DateTimePickerComponent>
@@ -30,7 +34,6 @@ class RecitScreen extends React.Component {
                 height = {120} 
                 title = "Titre" 
                 custom_placeholder = "Ex: Donnez un titre à votre reve..."
-                ref = 'title'
                 name = 'title'
                 onChange = {this.saveInput.bind(this)}
                 >
@@ -40,7 +43,6 @@ class RecitScreen extends React.Component {
                 height = {200} 
                 title = "Racontez votre rêve" 
                 custom_placeholder = "Ex: Racontez votre reve..." 
-                ref = 'story'
                 name = 'story'
                 onChange = {this.saveInput.bind(this)}
                 >

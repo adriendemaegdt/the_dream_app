@@ -5,9 +5,12 @@ import Slider from '@react-native-community/slider';
 
 
 class SliderComponent extends React.Component {
+
     
     render() {
 const title = this.props.title
+const name = this.props.name
+const onChange = this.props.onChange
       return (
           <View style= {styles.container}>
               <View style= {styles.title_container}>
@@ -22,6 +25,7 @@ const title = this.props.title
                     thumbTintColor="white"
                     minimumTrackTintColor="#8246D1"
                     maximumTrackTintColor="#9598A7"
+                    onSlidingComplete= {(value) => onChange(name, value)}
                 />
               </View>
               

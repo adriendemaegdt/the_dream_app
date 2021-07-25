@@ -14,7 +14,19 @@ function addDream(state = initialState, action) {
         const key = Object.keys(action.value)[0]
         const value = action.value[key]
         nextState = {...state}
-        nextState.newDream[key] = value
+        nextState.newDream[key] = value 
+        return nextState
+    
+    case 'CLEAR_DREAM':
+        nextState = {...state}
+        nextState.newDream = {}
+        return nextState
+
+    case 'SAVE_DREAM':
+        nextState = {...state}
+        
+        nextState.myDreams.push(action.value)
+        nextState.newDream = {}
         console.log(nextState)
         return nextState
 

@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, Switch } from 'react-native'
-import data_dream from '../data/data_dream'
-import Slider from '@react-native-community/slider';
 
 
 const SwitchComponent = (props) => {
     const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    
     const title = props.title
+    const onChange = props.onChange
+    const name = props.name
+    const toggleSwitch = (value) => {
+            setIsEnabled(previousState => !previousState);
+            onChange(name, value)
+        }
       return (
           <View style= {styles.container}>
               <View style= {styles.title_container}>
@@ -20,6 +24,7 @@ const SwitchComponent = (props) => {
                 ios_backgroundColor="#9598A7"
                 onValueChange={toggleSwitch}
                 value={isEnabled}
+                
             />
               </View>
               

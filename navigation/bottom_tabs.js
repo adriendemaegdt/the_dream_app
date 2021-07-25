@@ -15,13 +15,11 @@ import TopTabNewDream from './TopTabNewDream';
 import StackNewDream from './StackNewDream';
 import PlusIcon from '../assets/images/plus_icon.svg'
 
-
-
-
-const Button_plus = ({children, onPress, navigation}) => (
+const Button_plus = ({children, navigation}) => (
 
 <View style = {styles.button_view}>
     <TouchableOpacity 
+    onPress = {() => navigation.navigate('myDream')}
     style={{
         top:-30,
         justifyContent:"center",
@@ -35,8 +33,7 @@ const Button_plus = ({children, onPress, navigation}) => (
             style={styles.gradient}
             >
                 
-                {/* <View style = {styles.vertical}></View>
-                <View  style = {styles.horizontal}></View> */}
+        
             </LinearGradient>
         </View>
     </TouchableOpacity>
@@ -46,10 +43,24 @@ const Button_plus = ({children, onPress, navigation}) => (
 
 
 const Tab = createBottomTabNavigator()
-const Tabs = ({navigation}) => {
+const Tabs = (props) => {
+
+const redirectHome = () => {
+
+    props.dispatch(CommonActions.reset({
+      
+        index: 1,
+        routes: [
+          { name: 'JournalScreen' },
+        ] 
+    })
+    )
+}
+
     return(
 
     <Tab.Navigator
+    
     tabBarOptions={{
         showLabel:false,
         style:{
@@ -121,32 +132,15 @@ const Tabs = ({navigation}) => {
         }} 
           />
 
-          <Tab.Screen name="TopTabNewDream" component={StackNewDream}
-          
-          
-          options={{
-             title: 'My home' ,
-            //   tabBarVisible:false,
-              tabBarIcon:({focused}) => (
-                  <PlusIcon resizeMode = "contain" style = {{ width:30, height:30, color:'white', top:35}}/>
-              )
-              ,
-              tabBarButton:(props) => (
-                //   <Button_plus {...props} ></Button_plus>
-                  
-                //   <Plus {...props}/>
-                <Plus></Plus>
-              )
-              
-          }}
-          listeners={({navigation}) => ({
-              tabPress: event => {
-                  event.preventDefault();
-                  navigation.navigate("TopTabNewDream")
-              }
-          })}
 
-          />
+          <Tab.Screen 
+                name="Home" 
+                component={JournalScreen}
+                options={{
+                    tabBarButton:()=> (<Plus />)
+                }}
+                />
+
 
           <Tab.Screen name="Explorer" component={ExplorerScreen}
           options={{

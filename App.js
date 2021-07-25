@@ -24,6 +24,7 @@ import QuestionInput from './components/questionInput';
 import RecitScreen from './screens/RecitScreen';
 import DetailScreen from './screens/DetailScreen';
 import InterpretationScreen from './screens/InterpretationScreen';
+import StackNewDream from './navigation/StackNewDream';
 // REDUX
 import { Provider } from 'react-redux'
 import Store from './Store/configureStore'
@@ -73,9 +74,9 @@ export default function App(){
       <Provider store = {Store}>
         {/* <JournalScreen></JournalScreen> */}
         <NavigationContainer>
-          <Tabs>
+          <StackNewDream>
             
-          </Tabs>
+          </StackNewDream>
         </NavigationContainer>
       </Provider>
 
