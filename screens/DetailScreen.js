@@ -26,7 +26,7 @@ class DetailScreen extends React.Component {
       
       return (
         <KeyboardAvoidingView 
-            style={{flexGrow:1,height:'100%'}}
+            style={{flexGrow:1,height:'100%', backgroundColor:'#0F1538'}}
             behavior={Platform.OS === "ios" ? "position" : "height"} 
             automaticallyAdjustContentInsets={false} 
             keyboardVerticalOffset={-200} >
@@ -79,11 +79,15 @@ class DetailScreen extends React.Component {
                         name='sleepQuality'
                         onChange = {this.saveInput.bind(this)}
                     ></SliderComponent>
-                    <SwitchComponent 
+                    <View style= {{marginTop:40}}>
+                        <SwitchComponent 
                         title = "Present dans le rêve: "
                         name='presence'
                         onChange = {this.saveInput.bind(this)}
+                        
                     ></SwitchComponent>
+                    </View>
+                    
                     <SwitchComponent 
                         title = "Cauchemard: "
                         name='nightmare'
@@ -102,7 +106,7 @@ class DetailScreen extends React.Component {
     }
 const styles = StyleSheet.create({
     container: {
-        // height:5000, 
+        height:1300, 
         // flex:1,
         backgroundColor:"#0F1538", 
         // maxHeight:3000

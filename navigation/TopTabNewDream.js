@@ -37,7 +37,7 @@ const TopTabNewDream = (props) => {
 
     <topTab.Navigator
     screenOptions={{
-      headerStyle: { backgroundColor: '#633689' },
+      
       headerTintColor: '#fff',
       headerTitleStyle: { fontWeight: 'bold' }
     }}
@@ -50,7 +50,7 @@ const TopTabNewDream = (props) => {
       labelStyle: { fontSize: 18, fontFamily:'Harmattan-Bold' },
       style:{
         
-        backgroundColor:"#23195E",
+        backgroundColor:"#0F1538",
         height:70,
       },
       activeTintColor:'white', 

@@ -27,7 +27,7 @@ function addDream(state = initialState, action) {
         
         nextState.myDreams.push(action.value)
         nextState.newDream = {}
-        console.log(nextState)
+        
         return nextState
 
   default:

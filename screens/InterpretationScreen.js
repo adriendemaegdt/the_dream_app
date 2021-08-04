@@ -17,7 +17,7 @@ class InterpretationScreen extends React.Component {
       
       return (
         <KeyboardAvoidingView 
-            style = {{flex:1}}
+            style = {{flex:1,  backgroundColor:'#0F1538'}}
             behavior={Platform.OS === "ios" ? "height" : "height"} 
             keyboardVerticalOffset={-200}>
             
@@ -61,7 +61,8 @@ class InterpretationScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         
-        backgroundColor:"#0F1538", 
+        backgroundColor:"#0F1538",
+        height:1000 
         // maxHeight:3000
         // justifyContent: 'space-around'
 

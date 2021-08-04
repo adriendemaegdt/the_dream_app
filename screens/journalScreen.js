@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, FlatList, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, FlatList, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import Plus from '../components/plus'
 
 import OneDream from '../components/oneDream'
@@ -33,7 +33,7 @@ class JournalScreen extends React.Component {
                     <FlatList 
                     contentContainerStyle={styles.flatlist}
                     data = {this.props.myDreams}
-                    keyExtractor={(item) => item.id.toString()}
+                    keyExtractor={(item) => item.title.toString()}
                     renderItem = {({item}) => <OneDream dream_infos = {item} /> }
                 />
                 </View>
@@ -85,22 +85,10 @@ const styles = StyleSheet.create({
     flatlist:{
         justifyContent: 'space-around'
     },
+
     flatlist_container:{
         flex:6,
-    },
-    plus_view:{
-        width:'100%',
-        alignItems:'center',
-        justifyContent:'center',
-        position:'absolute',
-        bottom:60,
-        flex:1,
-        alignItems:'center', 
-        zIndex:2
-        // backgroundColor:'green',
-        // width:50, 
-        // height:50
-        
+        height:1000
     },
 
 })

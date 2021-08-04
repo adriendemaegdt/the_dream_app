@@ -14,18 +14,51 @@ class RecitScreen extends React.Component {
     }
 
     saveDate = (event,value) => {
-        this.saveInput('date',value)
-    }
+
+
+        // We change the format of the date given by the DateTimePickerComponent into day- month - year 
+
+        var months = { 
+            Jan: "Janvier", 
+            Feb:"Février", 
+            Mar:'Mars', 
+            Apr:'Avril', 
+            May: 'Mai', 
+            Jun: 'Juin', 
+            Jul: 'Juillet', 
+            Aug:'Aout', 
+            Sep: 'Septembre', 
+            Oct: 'Octobre', 
+            Nov: 'Novembre', 
+            Dec: 'Décembre'
+        }
+        var dreamDate = value.toString().substring(4, 15)
+        var theMonth = ''
+
+        Object.keys(months).forEach(key => {
+            
+            if (dreamDate.substring(0,3) === key.toString()) {
+                theMonth = months[key]
+            }
+          });
+    
+        var formatedDate = dreamDate.substring(4,6) + ' ' + theMonth  + ' ' + dreamDate.substring(7,15)
+
+// We save the formated date to the redux state
+
+this.saveInput('date',formatedDate)
+
+}
 
     render() {
         
       return (
         <KeyboardAvoidingView 
-            style = {{flex:1}}
+            style = {{flex:1,  backgroundColor:'#0F1538'}}
             behavior={Platform.OS === "ios" ? "position" : "position"}  
             keyboardVerticalOffset={-200}>
 
-            <ScrollView style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 
                 <DateTimePickerComponent onChange = {this.saveDate.bind(this)}></DateTimePickerComponent>
                 
@@ -54,7 +87,7 @@ class RecitScreen extends React.Component {
     }
 const styles = StyleSheet.create({
     container: {
-        height:2000, 
+        height:3000, 
         backgroundColor:"#0F1538", 
         // justifyContent: 'space-around'
 

@@ -19,7 +19,7 @@ class Plus extends React.Component {
             
             <TouchableOpacity
             style= {styles.button}
-            onPress={() => {navigation.navigate('myDream')} }
+            onPress={() => {navigation.navigate('MyDream')} }
             >
                 <LinearGradient
             colors={['#7039B8', '#9654EC']}

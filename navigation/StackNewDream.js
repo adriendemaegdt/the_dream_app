@@ -40,30 +40,41 @@ function StackNewDream(props) {
             
             onPress={() => saveNewDream(navigation)}
             title="Sauvegarder"
-            color="blue"
+            color="white"
+            
           /> ),
         headerTitleStyle: {
                 fontWeight: 'bold',
+                fontFamily:'Rancho', 
+                fontSize: 30, 
+                
+                  // Color:'"white'
               },
+        headerStyle:{
+          backgroundColor:'#23195E',
+          height: 80
+        }, 
+        headerTintColor:'white'
 
       })}
 
       
       >
        <Stack.Screen
+
+          options={{headerShown: false}} 
           name='Home'
           component={Tabs}
         ></Stack.Screen>
 
         <Stack.Screen 
-          name="myDream" 
+          name="MyDream" 
           component={TopTabNewDream}
-        //   options={ () => ({
-            
-        //     headerTitle: () => <Header title= 'Mon reve'/>
-          
-        //   })
-        // }
+          options={ () => ({
+            title: 'Mon Rêve', 
+            // headerStyle: {height: 60}
+          })
+        }
           
           />
         

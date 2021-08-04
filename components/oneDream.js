@@ -7,6 +7,7 @@ class OneDream extends React.Component {
     render() {
 
         const dream_infos = this.props.dream_infos
+        console.log(dream_infos.date)
         return (
     <View style={styles.oneDream}>
         <View style= {styles.date}>
@@ -18,7 +19,7 @@ class OneDream extends React.Component {
                     <Text style={styles.title_text} numberOfLines={1}>{dream_infos.title} </Text>
                 </View>
                 <View style= {styles.description_view}>
-                    <Text style={styles.description_text}  numberOfLines={2} ellipsizeMode= "tail" >{dream_infos.overview}</Text>
+                    <Text style={styles.description_text}  numberOfLines={2} ellipsizeMode= "tail" >{dream_infos.story}</Text>
                     <View style= {styles.button_play_view}>
                         <TouchableOpacity
                             style={styles.button_play}>
