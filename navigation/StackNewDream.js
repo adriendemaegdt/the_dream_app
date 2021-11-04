@@ -10,6 +10,8 @@ import TopTabNewDream from './TopTabNewDream';
 import Tabs from './bottom_tabs';
 import {connect} from 'react-redux'
 
+import firebase from 'firebase' 
+
 
 
 const Stack = createStackNavigator()
@@ -27,6 +29,9 @@ function StackNewDream(props) {
     const action = {type : 'SAVE_DREAM' ,value : props.newDream}
     props.dispatch(action)
     navigation.navigate('Home')
+    
+
+
   }
 
     return (

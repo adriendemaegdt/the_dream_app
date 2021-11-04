@@ -8,13 +8,11 @@ class QuestionInput extends React.Component {
             super(props);
             this.state = {answer:''}
         }
-    
     inputChange() {
         const field = this.props.name
         const value = this.state.answer
         this.props.onChange(field,value)
      }
-    
     
     componentDidMount(){
         if (this.props.newDream){
@@ -60,10 +58,7 @@ class QuestionInput extends React.Component {
                 keyboardAppearance = 'dark'
                 value = {answer}
                 ref='input'
-                
-                // {input => { this.textInput = input }}
 
-                
                 >
                 </TextInput>
 

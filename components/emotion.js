@@ -1,17 +1,27 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Button } from 'react-native'
 import data_dream from '../data/data_dream'
+import {connect} from 'react-redux'
 
 class EmotionComponent extends React.Component {
     
+    saveEmotion = (field,value) => {
+        const action = {type : 'SAVE_VALUE' ,value : {[field] : value}}
+        console.log(action)
+        this.props.dispatch(action)
+    }
+
     render() {
         
         const emotion = this.props.emotion
 
       return (
-          <View style= {styles.button}>
+          <Button style= {styles.button}
+          onPress = {this.saveInput.bind(this)}
+
+          >
               <Text style= {styles.text_attributes}> {emotion} </Text>
-          </View>
+          </Button>
       )}
     }
 const styles = StyleSheet.create({
@@ -36,4 +46,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default EmotionComponent
+export default connect()(EmotionComponent)

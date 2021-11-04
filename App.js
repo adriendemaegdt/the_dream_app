@@ -25,26 +25,38 @@ import RecitScreen from './screens/RecitScreen';
 import DetailScreen from './screens/DetailScreen';
 import InterpretationScreen from './screens/InterpretationScreen';
 import StackNewDream from './navigation/StackNewDream';
+import AuthScreen from './screens/AuthScreen';
 // REDUX
 import { Provider } from 'react-redux'
 import Store from './Store/configureStore'
+
 // FIREBASE
-import firebase from 'firebase/app'
-import 'firebase/firestore';
 
+// import { getFirestore, setDoc, doc } from 'firebase/firestore';
+// const firebase = require('firebase')
+// require('firebase/firestore')
 
-var firebaseConfig = {
+import * as firebase from 'firebase'
+
+const firebaseConfig = {
   apiKey: "AIzaSyDTzGLl_JO7majGwKcqedCIYD5gM5cPf5Y",
   authDomain: "appdream.firebaseapp.com",
   projectId: "appdream",
   storageBucket: "appdream.appspot.com",
   messagingSenderId: "422707936108",
-  appId: "1:422707936108:web:9008db775ca2ee21d61149"
+  appId: "1:422707936108:web:2dd39f351423b4cbd61149"
 };
 
-if (firebase.apps.length === 0) {
-  firebase.initializeApp(firebaseConfig);
+if ( firebase.apps.length === 0 ){
+  firebase.initializeApp(firebaseConfig)
 }
+// firebase.initializeApp(firebaseConfig)
+
+
+const db = firebase.firestore();
+
+export {db} 
+
 
 const getFonts = () => Font.loadAsync({
   'Harmattan-Bold':require('./assets/fonts/Harmattan-Bold.ttf'),
@@ -72,7 +84,7 @@ export default function App(){
     return (
 
       <Provider store = {Store}>
-        {/* <JournalScreen></JournalScreen> */}
+        {/* <AuthScreen></AuthScreen> */}
         <NavigationContainer>
           <StackNewDream>
             

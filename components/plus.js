@@ -21,14 +21,14 @@ class Plus extends React.Component {
             style= {styles.button}
             onPress={() => {navigation.navigate('MyDream')} }
             >
-                <LinearGradient
+            {/* <LinearGradient
             colors={['#7039B8', '#9654EC']}
             style={styles.gradient}
-            >
+            > */}
                 
-                <View style = {styles.vertical}></View>
-                <View  style = {styles.horizontal}></View>
-                </LinearGradient>
+                    <View style = {styles.vertical}></View>
+                    <View  style = {styles.horizontal}></View>
+            {/* </LinearGradient> */}
             </TouchableOpacity>
         </View>
       )}
@@ -52,16 +52,19 @@ const styles = StyleSheet.create({
     },
     vertical:{
         backgroundColor:'#F8F5FE',
-        height:'45%',
+        height:'40%',
         borderRadius:50,
-        width:7
+        width:6, 
+        zIndex:2
     },
+
     horizontal: {
         backgroundColor:'#F8F5FE', 
         borderRadius:50,
-        width:'45%',
-        height:7,
-        position:'absolute'
+        width:'40%',
+        height:6,
+        position:'absolute',
+        zIndex:2
 
     },
     gradient:{

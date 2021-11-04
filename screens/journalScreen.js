@@ -37,8 +37,6 @@ class JournalScreen extends React.Component {
                     renderItem = {({item}) => <OneDream dream_infos = {item} /> }
                 />
                 </View>
-                
-
         </View>
         )
     }
@@ -48,6 +46,7 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:'#0F1538', 
+        marginBottom:60
         
     },
 
@@ -79,11 +78,10 @@ const styles = StyleSheet.create({
         color:'white',
         fontSize:20
     },
- 
-
 
     flatlist:{
-        justifyContent: 'space-around'
+        justifyContent: 'space-around', 
+        
     },
 
     flatlist_container:{

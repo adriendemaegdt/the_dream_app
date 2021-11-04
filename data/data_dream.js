@@ -3,7 +3,7 @@ export default data = [
        id:181808,
        title:"Un Voyage interminable",
        story:"Les héros du Réveil de la force rejoignent les figures légendaires de la galaxie dans une aventure épique qui révèle des secrets ancestraux sur la Force et entraîne de choquantes révélations sur le passé…",
-       date:"29 Septembre 1997",
+       date:"29 Septembre 2020",
        tags:[ 'merveilleux',"joyeux"]
     },
     {

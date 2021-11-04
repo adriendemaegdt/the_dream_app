@@ -33,7 +33,7 @@ class OneDream extends React.Component {
                     data= {dream_infos.tags}
                     keyExtractor={(item, index) => 'key'+index}
                     renderItem={({item}) => <ButtonAttribute dream_infos_tags={item}></ButtonAttribute>}
-                    
+                
                     />
                 </View>
             </View>

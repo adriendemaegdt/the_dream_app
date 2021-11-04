@@ -2,6 +2,10 @@
 
 import data_dream from "../../data/data_dream"
 
+// import {setDoc,doc} from '@firebase/firestore';
+import firebase from 'firebase' 
+
+
 const initialState = { 
     myDreams: data_dream,
     newDream: {}
@@ -26,9 +30,30 @@ function addDream(state = initialState, action) {
         nextState = {...state}
         
         nextState.myDreams.push(action.value)
+        console.log(action.value)
         nextState.newDream = {}
-        
+
+        // Save Dream to firestore //
+
+        firebase.firestore().collection("users")
+        .doc("user_id")
+        .collection("dream_id")
+        .doc("dream_1")
+        .set({
+      
+          title: action.value.title, 
+          story: action.value.story, 
+        })
+
+        // setDoc(doc(db, "user_id", "reve_nb"), {
+        // employment: "plumber",
+        // outfitColor: "red",
+        // specialAttack: "fireball"
+        // });
+
         return nextState
+
+       
 
   default:
     return state
