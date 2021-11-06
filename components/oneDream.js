@@ -1,45 +1,51 @@
 import React from 'react'
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native'
 import ButtonAttribute from './buttonAttributes'
+import { useNavigation } from '@react-navigation/native';
 
 class OneDream extends React.Component {
 
     render() {
-
         const dream_infos = this.props.dream_infos
-        console.log(dream_infos.date)
+        const navigation = this.props.navigation
+        
         return (
-    <View style={styles.oneDream}>
-        <View style= {styles.date}>
-                <Text style = {styles.date_text}> {dream_infos.date} </Text>
-        </View>
-        <View style={styles.main_container}>
-            <View style={styles.content_container}>
-                <View style={styles.title_view}>
-                    <Text style={styles.title_text} numberOfLines={1}>{dream_infos.title} </Text>
-                </View>
-                <View style= {styles.description_view}>
-                    <Text style={styles.description_text}  numberOfLines={2} ellipsizeMode= "tail" >{dream_infos.story}</Text>
-                    <View style= {styles.button_play_view}>
-                        <TouchableOpacity
-                            style={styles.button_play}>
-                            <View style={[styles.triangle,styles.arrowRight]}></View>
-                        </TouchableOpacity>
+    <TouchableOpacity
+    onPress={() => {
+        navigation.navigate('ResumeScreen', {infos: dream_infos})
+            } }
+    >
+        <View style={styles.oneDream}>
+            <View style= {styles.date}>
+                    <Text style = {styles.date_text}> {dream_infos.date} </Text>
+            </View>
+            <View style={styles.main_container}>
+                <View style={styles.content_container}>
+                    <View style={styles.title_view}>
+                        <Text style={styles.title_text} numberOfLines={1}>{dream_infos.title} </Text>
+                    </View>
+                    <View style= {styles.description_view}>
+                        <Text style={styles.description_text}  numberOfLines={2} ellipsizeMode= "tail" >{dream_infos.story}</Text>
+                        <View style= {styles.button_play_view}>
+                            <TouchableOpacity
+                                style={styles.button_play}>
+                                <View style={[styles.triangle,styles.arrowRight]}></View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style = {styles.attributes_view}>
+                        <FlatList 
+                        horizontal
+                        data= {dream_infos.tags}
+                        keyExtractor={(item, index) => 'key'+index}
+                        renderItem={({item}) => <ButtonAttribute fontSize = {12} height ={30} dream_infos_tags={item}></ButtonAttribute>}
+                        />
                     </View>
                 </View>
-                <View style = {styles.attributes_view}>
-                    <FlatList 
-                    horizontal
-                    data= {dream_infos.tags}
-                    keyExtractor={(item, index) => 'key'+index}
-                    renderItem={({item}) => <ButtonAttribute dream_infos_tags={item}></ButtonAttribute>}
-                
-                    />
-                </View>
             </View>
+        
         </View>
-    
-    </View>
+    </TouchableOpacity>
         )
     }
   }
@@ -128,9 +134,11 @@ class OneDream extends React.Component {
         flexDirection:'row',
         marginBottom:10
     },
-    flatlist_items:{
 
-    }
 })
 
-export default OneDream
+export default function(props) {
+    const navigation = useNavigation();
+  
+    return <OneDream {...props} navigation={navigation} />;
+  }

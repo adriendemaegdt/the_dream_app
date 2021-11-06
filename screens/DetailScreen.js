@@ -57,7 +57,6 @@ class DetailScreen extends React.Component {
       }
     
       setValue(callback) {
-        console.log("allez gros tp")
         this.setState(state => ({
           value: callback(state.value)
         }));

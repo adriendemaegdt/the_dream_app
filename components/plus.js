@@ -1,14 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
-import {LinearGradient} from 'expo-linear-gradient'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { withNavigation } from 'react-navigation';
 import { useNavigation } from '@react-navigation/native';
-import RecitScreen from '../screens/RecitScreen';
-import DetailScreen from '../screens/DetailScreen';
-import TopTabNewDream from '../navigation/TopTabNewDream';
-import StackNewDream from '../navigation/StackNewDream';
+
 
 class Plus extends React.Component {
     
@@ -21,14 +14,8 @@ class Plus extends React.Component {
             style= {styles.button}
             onPress={() => {navigation.navigate('MyDream')} }
             >
-            {/* <LinearGradient
-            colors={['#7039B8', '#9654EC']}
-            style={styles.gradient}
-            > */}
-                
-                    <View style = {styles.vertical}></View>
-                    <View  style = {styles.horizontal}></View>
-            {/* </LinearGradient> */}
+                <View style = {styles.vertical}></View>
+                <View  style = {styles.horizontal}></View>
             </TouchableOpacity>
         </View>
       )}

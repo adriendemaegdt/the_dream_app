@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, FlatList, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import Plus from '../components/plus'
+import { StyleSheet, View, FlatList, TextInput, TouchableOpacity, ScrollView, Modal, Text } from 'react-native'
+// import Plus from '../components/plus'
 
 import OneDream from '../components/oneDream'
 import Header from '../components/header'
@@ -11,9 +11,16 @@ import { connect } from 'react-redux'
 
 class JournalScreen extends React.Component {
 
-    render() {
+    
+    // state = {
+    //     modalVisible: false
+    //   };
+    // setModalVisible = (visible) => {
+    // this.setState({ modalVisible: visible });
+    // }
 
-        // const { navigation } = this.props;
+    render() {
+        
         return (
             <View style={styles.container}>
                 <Header style = {styles.header}></Header>
@@ -29,6 +36,7 @@ class JournalScreen extends React.Component {
                     </View>
                     
                 </View>
+
                 <View style={styles.flatlist_container}>
                     <FlatList 
                     contentContainerStyle={styles.flatlist}
@@ -50,9 +58,6 @@ const styles = StyleSheet.create({
         
     },
 
-    header:{
-        // flex:2
-    },
     search_view:{
         flex:1,
         justifyContent:'center',
@@ -89,6 +94,46 @@ const styles = StyleSheet.create({
         height:1000
     },
 
+    centered_view:{
+        width:'95%', 
+        height:'80%', 
+        backgroundColor:'#252947', 
+        // flexDirection:'row', 
+        // flex:1
+    }, 
+    title:{
+        marginTop:40,
+        backgroundColor:'brown', 
+        height:60, 
+        // flex:1, 
+        paddingTop:10,
+        justifyContent:'center', 
+        alignItems:'center'
+    },
+    text_title:{
+        fontFamily:'Harmattan-Bold',
+        fontSize:30,
+        color:'white'
+    },
+    story:{
+        
+        height:250, 
+        paddingTop:30,
+        padding:15
+    },
+    text_story:{
+        padding:10,
+        fontFamily:'Harmattan-Regular',
+        fontSize:25,
+        color:'#F8F5FE',  
+        lineHeight: 25,
+    },
+    tags:{
+        backgroundColor:'purple', 
+        height:20, 
+        width:40, 
+        // flex:1
+    }
 })
 
 const mapStateToProps = (state) => {

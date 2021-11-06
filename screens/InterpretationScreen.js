@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     container: {
         
         backgroundColor:"#0F1538",
-        height:1000 
+        height:1500 
         // maxHeight:3000
         // justifyContent: 'space-around'
 

@@ -26,6 +26,8 @@ import DetailScreen from './screens/DetailScreen';
 import InterpretationScreen from './screens/InterpretationScreen';
 import StackNewDream from './navigation/StackNewDream';
 import AuthScreen from './screens/AuthScreen';
+import ResumeScreen from './screens/ResumeScreen';
+import StackResume from './navigation/StackResume';
 // REDUX
 import { Provider } from 'react-redux'
 import Store from './Store/configureStore'
@@ -85,10 +87,13 @@ export default function App(){
 
       <Provider store = {Store}>
         {/* <AuthScreen></AuthScreen> */}
+        {/* <ResumeScreen></ResumeScreen> */}
+        
         <NavigationContainer>
           <StackNewDream>
             
           </StackNewDream>
+          {/* <StackResume></StackResume> */}
         </NavigationContainer>
       </Provider>
 

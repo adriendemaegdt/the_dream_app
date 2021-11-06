@@ -9,56 +9,29 @@ import AnalyseScreen from "../screens/AnalyseScreen";
 import ExplorerScreen from "../screens/ExplorerScreen";
 import ProfilScreen from "../screens/ProfilScreen";
 import RecitScreen from '../screens/RecitScreen';
+import StackResume from './StackResume';
+import getFocusedRouteNameFromRoute from '@react-navigation/native'
 
 import Plus from '../components/plus';
-import TopTabNewDream from './TopTabNewDream';
-import StackNewDream from './StackNewDream';
-import PlusIcon from '../assets/images/plus_icon.svg'
-
-const Button_plus = ({children, navigation}) => (
-
-<View style = {styles.button_view}>
-    <TouchableOpacity 
-    onPress = {() => navigation.navigate('myDream')}
-    style={{
-        top:-30,
-        justifyContent:"center",
-        alignItems:'center',
-    }}
-    >
-        <View style={{width:70, height:70, borderRadius:35, backgroundColor:'#7A40C6', justifyContent:'center', alignItems:'center' }}>
-            {children}
-            <LinearGradient
-            colors={['#7039B8', '#9654EC']}
-            style={styles.gradient}
-            >
-                
-        
-            </LinearGradient>
-        </View>
-    </TouchableOpacity>
-    </View>
-)
-
 
 
 const Tab = createBottomTabNavigator()
+
 const Tabs = (props) => {
 
-const redirectHome = () => {
-
-    props.dispatch(CommonActions.reset({
+    // const getTabBarVisibility = (route) => {
+    //     const routeName = route.state
+    //       ? route.state.routes[route.state.index].name
+    //       : '';
       
-        index: 1,
-        routes: [
-          { name: 'JournalScreen' },
-        ] 
-    })
-    )
-}
+    //     if (routeName === 'ResumeScreen') {
+    //       return false;
+    //     }
+      
+    //     return true;
+    //   }
 
     return(
-
     <Tab.Navigator
     
     tabBarOptions={{
@@ -68,108 +41,16 @@ const redirectHome = () => {
             borderRadius:6,
             backgroundColor:"#252947",
             height:70,
-            // borderTopColor:'red',
             ...styles.shadow
         }, 
-        
-
-    }
-    }
+    }}
     >
         
-          <Tab.Screen name="JournalScreen" component={JournalScreen} 
-          options={{
-              tabBarIcon:({focused}) => (
-                  <View style={{
-                      alignItems:'center',
-                      justifyContent:'center',
-                      top:10
-                  }}>
-                      <Image 
-                      source= {require('../assets/images/tab_bar_mes_reves.png')}
-                      style={
-                        {width: 25,
-                        height:25,
-                        tintColor: focused ? "white" : "#8E8FA2"
-                        }
-                      }></Image>
-                      <Text style={{
-                          color: focused ? "white" : "#8E8FA2",
-                          fontSize:12,
-                          fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
-                      }}>Mes Rêves</Text>
-                  </View>
-              )
-          }} 
-          />
+        <Tab.Screen name="Journal" component={JournalScreen}
 
-          <Tab.Screen name="Analyse" component={AnalyseScreen}
-          options={{
-            tabBarIcon:({focused}) => (
-
-                <View style={{
-                    alignItems:'center',
-                    justifyContent:'center',
-                    top:10,
-
-                }}>
-                    <Image 
-                    source= {require('../assets/images/tab_bar_analyse.png')}
-                    style={
-                      {width: 25,
-                      height:25,
-                      tintColor: focused ? "white" : "#8E8FA2",
-                      
-                      }
-                    }></Image>
-                    <Text style={{
-                        color: focused ? "white" : "#8E8FA2",
-                        fontSize:12,
-                        fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
-                    }}>Analyses</Text>
-                </View>
-            )
-        }} 
-          />
-
-
-          <Tab.Screen 
-                name="Home" 
-                component={JournalScreen}
-                options={{
-                    tabBarButton:()=> (<Plus />)
-                }}
-                />
-
-
-          <Tab.Screen name="Explorer" component={ExplorerScreen}
-          options={{
-            tabBarIcon:({focused}) => (
-
-                <View style={{
-                    alignItems:'center',
-                    justifyContent:'center',
-                    top:10
-                }}>
-                    <Image 
-                    source = {require('../assets/images/tab_bar_compass.png')}
-                    style={
-                      {width: 25,
-                      height:25,
-                      tintColor: focused ? "white" : "#8E8FA2"
-                      }
-                    }></Image>
-                    <Text style={{
-                        color: focused ? "white" : "#8E8FA2",
-                        fontSize:12,
-                        fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
-                    }}>Explorer</Text>
-                </View>
-            )
-        }} 
-          />
-          <Tab.Screen name="Profil" component={ProfilScreen} 
-          options={{
+        options={ ({route}) => ({
+            // tabBarVisible: this.getTabBarVisibility(route),
+            
             tabBarIcon:({focused}) => (
                 <View style={{
                     alignItems:'center',
@@ -177,23 +58,114 @@ const redirectHome = () => {
                     top:10
                 }}>
                     <Image 
-                    source= {require('../assets/images/tab_bar_profil.png')}
+                    source= {require('../assets/images/tab_bar_mes_reves.png')}
                     style={
-                      {width: 25,
-                      height:25,
-                      tintColor: focused ? "white" : "#8E8FA2"
-                      }
+                    {width: 25,
+                    height:25,
+                    tintColor: focused ? "white" : "#8E8FA2"
+                    }
                     }></Image>
                     <Text style={{
                         color: focused ? "white" : "#8E8FA2",
                         fontSize:12,
                         fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
-                    }}>Profil</Text>
+                    }}>Mes Rêves</Text>
                 </View>
-             
             )
-        }} 
-          />
+                })} 
+        />
+
+        <Tab.Screen name="Analyse" component={AnalyseScreen}
+        options={{
+        tabBarIcon:({focused}) => (
+
+            <View style={{
+                alignItems:'center',
+                justifyContent:'center',
+                top:10,
+
+            }}>
+                <Image 
+                source= {require('../assets/images/tab_bar_analyse.png')}
+                style={
+                    {width: 25,
+                    height:25,
+                    tintColor: focused ? "white" : "#8E8FA2",
+                    
+                    }
+                }></Image>
+                <Text style={{
+                    color: focused ? "white" : "#8E8FA2",
+                    fontSize:12,
+                    fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
+                }}>Analyses</Text>
+            </View>
+        )
+    }} 
+        />
+
+
+        <Tab.Screen 
+            name="Home" 
+            component={JournalScreen}
+            options={{
+                tabBarButton:()=> (<Plus />)
+            }}
+            />
+
+
+        <Tab.Screen name="Explorer" component={ExplorerScreen}
+        options={{
+        tabBarIcon:({focused}) => (
+
+            <View style={{
+                alignItems:'center',
+                justifyContent:'center',
+                top:10
+            }}>
+                <Image 
+                source = {require('../assets/images/tab_bar_compass.png')}
+                style={
+                    {width: 25,
+                    height:25,
+                    tintColor: focused ? "white" : "#8E8FA2"
+                    }
+                }></Image>
+                <Text style={{
+                    color: focused ? "white" : "#8E8FA2",
+                    fontSize:12,
+                    fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
+                }}>Explorer</Text>
+            </View>
+        )
+    }} 
+        />
+        <Tab.Screen name="Profil" component={ProfilScreen} 
+        options={{
+        tabBarIcon:({focused}) => (
+            <View style={{
+                alignItems:'center',
+                justifyContent:'center',
+                top:10
+            }}>
+                <Image 
+                source= {require('../assets/images/tab_bar_profil.png')}
+                style={
+                    {width: 25,
+                    height:25,
+                    tintColor: focused ? "white" : "#8E8FA2"
+                    }
+                }></Image>
+                <Text style={{
+                    color: focused ? "white" : "#8E8FA2",
+                    fontSize:12,
+                    fontFamily:focused ? 'Harmattan-Bold' : 'Harmattan-Regular'
+                }}>Profil</Text>
+            </View>
+            
+        )
+    }} 
+        />
         
     </Tab.Navigator>
    

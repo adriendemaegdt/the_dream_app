@@ -8,8 +8,9 @@ import Header from '../components/customHeaderStack';
 // import Tabs from './bottom_tabs';
 import TopTabNewDream from './TopTabNewDream';
 import Tabs from './bottom_tabs';
+import StackResume from './StackResume';
+import ResumeScreen from '../screens/ResumeScreen';
 import {connect} from 'react-redux'
-
 import firebase from 'firebase' 
 
 
@@ -30,8 +31,6 @@ function StackNewDream(props) {
     props.dispatch(action)
     navigation.navigate('Home')
     
-
-
   }
 
     return (
@@ -52,18 +51,13 @@ function StackNewDream(props) {
                 fontWeight: 'bold',
                 fontFamily:'Rancho', 
                 fontSize: 30, 
-                
-                  // Color:'"white'
               },
         headerStyle:{
           backgroundColor:'#23195E',
           height: 80
         }, 
         headerTintColor:'white'
-
       })}
-
-      
       >
        <Stack.Screen
 
@@ -77,11 +71,19 @@ function StackNewDream(props) {
           component={TopTabNewDream}
           options={ () => ({
             title: 'Mon Rêve', 
-            // headerStyle: {height: 60}
+          })
+        }       
+          />
+        <Stack.Screen
+          options={{headerShown: true}} 
+          options={ () => ({
+            title: '',
+            color:'red'
           })
         }
-          
-          />
+          name='ResumeScreen'
+          component={ResumeScreen}
+          ></Stack.Screen>
         
       </Stack.Navigator>
     );

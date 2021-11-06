@@ -7,16 +7,17 @@ class ButtonAttribute extends React.Component {
     render() {
         
         const tags = this.props.dream_infos_tags
-
+        const height = this.props.height
+        const fontSize = this.props.fontSize
       return (
-          <View style= {styles.button}>
-              <Text style= {styles.text_attributes}> {tags} </Text>
+          <View style= {[styles.button, {height: height}]}>
+              <Text style= {[styles.text_attributes, {fontSize: fontSize}]}> {tags} </Text>
           </View>
       )}
     }
 const styles = StyleSheet.create({
     button: {
-        height: 30,
+        // height: {height},
         justifyContent: 'center',
         alignItems:'center',
         backgroundColor: '#0F143A',
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     text_attributes:{
         color:"white",
         fontFamily:'Harmattan-Bold',
-        fontSize:12
+        // fontSize: {fontSize}
     }
 
 })
