@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet,KeyboardAvoidingView,ScrollView} from 'react-native'
 import QuestionInput from '../components/questionInput'
+import AudioRecorder from '../components/AudioRecorder';
 import { DateTimePickerComponent } from '../components/dateTimePicker';
 import {connect} from 'react-redux'
 
@@ -57,6 +58,8 @@ this.saveInput('date',formatedDate)
             style = {{flex:1,  backgroundColor:'#0F1538'}}
             behavior={Platform.OS === "ios" ? "position" : "position"}  
             keyboardVerticalOffset={-200}>
+            
+            <AudioRecorder></AudioRecorder>
 
             <ScrollView contentContainerStyle={styles.container}>
                 
@@ -82,6 +85,7 @@ this.saveInput('date',formatedDate)
                 </QuestionInput>
                 
             </ScrollView>
+            
         </KeyboardAvoidingView>
       )}
     }
@@ -89,7 +93,6 @@ const styles = StyleSheet.create({
     container: {
         height:3000, 
         backgroundColor:"#0F1538", 
-        // justifyContent: 'space-around'
 
     }
 

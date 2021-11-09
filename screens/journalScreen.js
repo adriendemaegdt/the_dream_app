@@ -4,20 +4,13 @@ import { StyleSheet, View, FlatList, TextInput, TouchableOpacity, ScrollView, Mo
 
 import OneDream from '../components/oneDream'
 import Header from '../components/header'
+import Header2 from '../components/header2'
 
 import SearchIcon from '../assets/images/search_icon.svg';
 
 import { connect } from 'react-redux'
 
 class JournalScreen extends React.Component {
-
-    
-    // state = {
-    //     modalVisible: false
-    //   };
-    // setModalVisible = (visible) => {
-    // this.setState({ modalVisible: visible });
-    // }
 
     render() {
         

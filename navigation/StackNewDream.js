@@ -35,55 +35,87 @@ function StackNewDream(props) {
 
     return (
       <Stack.Navigator
-      mode = 'modal'
-      headerMode='screen'
-      headerTitle = 'Mon rêve'
-      screenOptions={({route, navigation}) => ({
-        headerRight: () => (
-          <Button
-            
-            onPress={() => saveNewDream(navigation)}
-            title="Sauvegarder"
-            color="white"
-            
-          /> ),
-        headerTitleStyle: {
-                fontWeight: 'bold',
-                fontFamily:'Rancho', 
-                fontSize: 30, 
-              },
-        headerStyle:{
-          backgroundColor:'#23195E',
-          height: 80
-        }, 
-        headerTintColor:'white'
-      })}
+      // mode = 'modal'
+      
       >
-       <Stack.Screen
-
-          options={{headerShown: false}} 
-          name='Home'
-          component={Tabs}
-        ></Stack.Screen>
-
-        <Stack.Screen 
-          name="MyDream" 
-          component={TopTabNewDream}
-          options={ () => ({
-            title: 'Mon Rêve', 
-          })
-        }       
-          />
-        <Stack.Screen
-          options={{headerShown: true}} 
-          options={ () => ({
-            title: '',
-            color:'red'
-          })
-        }
-          name='ResumeScreen'
-          component={ResumeScreen}
+        <Stack.Group
+        
+        screenOptions={({route, navigation}) => ({
+          presentation : 'modal',
+          headerRight: () => (
+            <Button
+              
+              onPress={() => saveNewDream(navigation)}
+              title="Sauvegarder"
+              color="white"
+              
+            /> ),
+          headerTitleStyle: {
+                  fontWeight: 'bold',
+                  fontFamily:'Rancho', 
+                  fontSize: 30, 
+                },
+          headerStyle:{
+            backgroundColor:'#23195E',
+            height: 80
+          }, 
+          headerTintColor:'white'
+        })}
+        >
+           <Stack.Screen
+            options={{headerShown: false}} 
+            name='Home'
+            component={Tabs}
           ></Stack.Screen>
+
+          <Stack.Screen 
+            name="MyDream" 
+            component={TopTabNewDream}
+            options={ () => ({
+              title: 'Mon Rêve', 
+            })
+          }       
+            />
+        </Stack.Group>
+
+        <Stack.Group
+        
+        screenOptions={({route, navigation}) => ({
+          presentation : 'modal',
+          headerTitle : 'Résumé',
+          headerRight: () => (
+            <Button
+              
+              onPress={() => console.log("je veux modifier")}
+              title="Modifier"
+              color="white"
+              
+            /> ),
+          headerTitleStyle: {
+                  fontWeight: 'bold',
+                  fontFamily:'Rancho', 
+                  fontSize: 30, 
+                },
+          headerStyle:{
+            backgroundColor:'#23195E',
+            height: 80
+          }, 
+          headerTintColor:'white'
+        })}
+        >
+            <Stack.Screen
+                options={{headerShown: true}} 
+                options={ () => ({
+                  title: '',
+                  color:'red'
+                })
+              }
+                name='ResumeScreen'
+                component={ResumeScreen}
+            ></Stack.Screen>
+                    
+        </Stack.Group>
+      
         
       </Stack.Navigator>
     );

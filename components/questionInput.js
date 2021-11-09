@@ -24,9 +24,6 @@ class QuestionInput extends React.Component {
     }
     render() {
           
-     
-        
-        
       const marginTop = this.props.marginTop
       const height = this.props.height
       const title = this.props.title
@@ -34,8 +31,6 @@ class QuestionInput extends React.Component {
       const multilineAuthorized = this.props.multilineAuthorized
       const answer = this.state.answer
       
-     
-    
         return (
             <View style= {[styles.container, {height:height}, {marginTop: marginTop}] } >
                 <View style= {styles.question_view}>

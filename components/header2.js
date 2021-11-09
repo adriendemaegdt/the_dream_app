@@ -6,7 +6,7 @@ import Header_center from '../assets/images/header_center.svg';
 import Header_left from '../assets/images/header_left.svg';
 import Header_right from '../assets/images/header_right.svg';
 
-export default class Header extends React.Component {
+export default class Header2 extends React.Component {
 	render() {
         // const height = this.props.height
         // console.log(height)
@@ -14,14 +14,14 @@ export default class Header extends React.Component {
 			<View style={styles.container}>
 
                 <View style={styles.left}>
-                <Header_left style={styles.vectorLeft}/>
+                    <Header_left style={styles.vectorLeft}/>
                 </View>
                 <View style={styles.center}>
                     <Text style={styles.title_text}>Mes Rêves</Text>
                 </View>
                 <View style={styles.right}>
-                    <Header_center  height="160" style={styles.vectorCenter} />
-				    <Header_right height = "160" style={styles.vectorRight} />
+                    <Header_center  height="200" style={styles.vectorCenter} />
+				    <Header_right height = "200" style={styles.vectorRight} />
                 </View>
                 <View style = {[styles.shiny_star, styles.star_1]}></View>
                 <View style = {[styles.normal_star, styles.star_2]}></View>
@@ -42,7 +42,7 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-        height:160,
+        height:200,
         width :Dimensions.get('window').width,
         flexDirection:"row",
         backgroundColor:"#23195E",
