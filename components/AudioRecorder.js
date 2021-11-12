@@ -1,9 +1,13 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button, Pressable } from 'react-native'
+import { StyleSheet, View, Text, Button, Pressable, Image, TouchableOpacity } from 'react-native'
 import { Audio } from 'expo-av';
 import * as firebase from 'firebase'
-import {useState} from "react";
+import {useState, useRef} from "react";
 import * as FileSystem from 'expo-file-system';
+import AudioRecord from './AudioRecord';
+
+// import Microphone from '../assets/images/microphone.svg';
+
 
 export default function AudioRecorder(){
 
@@ -31,17 +35,30 @@ export default function AudioRecorder(){
       
       const db = firebase.database();
       
+      const [RecordedURI, SetRecordedURI] = useState('');
       const [isRecording, setIsRecording] = useState(false);
       const [recording, setRecording] = useState(null);
       const [sound, setSound] = useState(null);
       const [isPlaying, setIsPlaying] = useState(false);
+      const [finalDuration, setFinalDuration] = useState("0.0 ")
+      const [duration, setDuration] = useState("0.0 ")
+      const [timer, setTimer] = useState(0)
+      const Player = useRef(new Audio.Sound());
 
-    //   let recording = new Audio.Recording()
-    // let _recording = new Audio.Recording();
+
+      let start_time = Date.now()
+      let end_time = Date.now()
+      
+      function findDuration(){
+          return setDuration(((Date.now() - start_time)/1000).toString().substring(0,2))
+      }
 
     // Start Recording
-
     const startRecording = async () => {
+
+        let start_time = Date.now() 
+        setTimer(0)
+
         // stop playback
         if (sound !== null) {
           await sound.unloadAsync();
@@ -65,25 +82,42 @@ export default function AudioRecorder(){
           setRecording(_recording);
           await _recording.startAsync();
           console.log("recording");
-        //   setIsRecording(true);
+        
         } catch (error) {
-            // console.log(_recording)
             console.log("error while recording:", error);
         }
+
+        let timer = setInterval(findDuration, 1000)
+        setTimer(timer)
+        
       };
 
 // Stop recording
 
       const stopRecording = async () => {
+        let end_time = Date.now()
+        let finalDuration = (end_time - start_time)/1000
+        setFinalDuration(finalDuration)
+        console.log(finalDuration)
+
+        clearInterval(timer)
+        setTimer(timer)
+        
+
         try {
           await recording.stopAndUnloadAsync();
-          console.log(_recording)
+        //   console.log(_recording)
+          
         //   await recording._cleanupForUnloadedRecorder();
         } catch (error) {
           // Do nothing -- we are already unloaded.
-          
         }
-        const info = await FileSystem.getInfoAsync(recording.getURI());
+        let result = recording.getURI();
+        console.log("reggg")
+        console.log(result)
+        SetRecordedURI(result); 
+
+        const info = await FileSystem.getInfoAsync(result);
         console.log(`FILE INFO: ${JSON.stringify(info)}`);
         await Audio.setAudioModeAsync({
           allowsRecordingIOS: false,
@@ -108,6 +142,43 @@ export default function AudioRecorder(){
         // setIsRecording(false);
         // console.log(isRecording)
       };
+
+      const playSound = async () => {
+        try {
+          const result = await Player.current.loadAsync(
+            { uri: RecordedURI },
+            {},
+            true
+          );
+    
+          const response = await Player.current.getStatusAsync();
+          if (response.isLoaded) {
+            if (response.isPlaying === false) {
+              Player.current.playAsync();
+              console.log('hmmm')
+              SetisPlaying(true);
+              console.log("mais je joue la !!! ")
+            }
+          }
+        } catch (error) {
+            console.log("c'est la ")
+          console.log(error);
+        }
+      };
+
+      const stopSound = async () => {
+        try {
+            const checkLoading = await Player.current.getStatusAsync();
+            if (checkLoading.isLoaded === true) {
+            await Player.current.stopAsync();
+            SetisPLaying(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        };
+
+
 
     //   Upload Audio 
 
@@ -154,8 +225,6 @@ export default function AudioRecorder(){
     }
     };
 
-    
-
     // Dowload audio
 
     const downloadAudio = async () => {
@@ -178,38 +247,161 @@ export default function AudioRecorder(){
 
 
     return(
-        <View >
-            <Pressable 
+        <View>
+            <View style= {styles.container}>
                 
-                style={styles.button_recorder}
-                onPressIn= {startRecording}
-                onPressOut= { () => {
-                                        stopRecording() ;
-                                        uploadAudio()
-                                    }
-                            }
-            >
+                <TouchableOpacity 
+                    style = {styles.playSound}
+                    onPress={playSound}
+                >
+                    
+                    <Text style= {styles.text_time}>
+                        Réecouter mon rêve ! 
+                    </Text>
+                    
+                    {/* Reutilisable pour un component dream recap */}
+                    {/* <View style= {styles.button_play_view}>
+                        
+                        <Text style= {styles.text_time}>
+                            {duration} s
+                        </Text>
+                        <View
+                            style={styles.button_play}>
+                            <View style={[styles.triangle,styles.arrowRight]}></View>
+                        </View>
+                    </View> */}
 
-                <Text style={styles.text_recorder} >
-                    Text me
+                </TouchableOpacity>
+
+
+                <TouchableOpacity 
+                    style = {styles.playSound}
+                    onPress={stopSound}
+                >
+                    <Text style= {styles.text_time}>
+                        Stopper l'écoute 
+                    </Text>
+                </TouchableOpacity>
+            </View>
+                
+            <View  style= {styles.container_recorder}>
+                <Text style= {styles.text_time}>
+                    {duration} secondes
                 </Text>
-            </Pressable>
+                <Pressable 
+                    style={styles.button_recorder}
+                    hitSlop = {{top: 0, bottom: 50, left: 50, right: 50}}
+                    onLongPress= {startRecording}
+                    onPressOut= { () => {
+                                            stopRecording() ;
+                                            uploadAudio()
+                                        }
+                                }
+                >
+
+                    <View style={styles.microphone}>
+                        {/* <Microphone style = {styles.icon_mic}> */}
+                        <Image source = {require('../assets/images/microphone.png')}
+                                style = {styles.icon_mic}
+                    >
+
+                        </Image>
+                        {/* </Microphone> */}
+                    </View>
+                </Pressable>
+            </View>
         </View>
         
     )
 }
 const styles = StyleSheet.create({
-    button_recorder: {
-        backgroundColor:'purple', 
-        width:80, 
-        height:80, 
-        borderRadius:40, 
+
+    container:{
         justifyContent:'center', 
-        textAlign:'center'
+        alignItems:'center',
+    },
+    container_recorder:{
+        justifyContent:'center', 
+        alignItems:'center',
+    },
+    playSound:{
+        marginTop:30,
+        width:300, 
+        height:50,
+        borderRadius:30,
+        backgroundColor:'#2E206F', 
+        justifyContent:'center',
+        alignItems:'center'
+    },
+   
+    text_time:{
+        fontFamily:'Harmattan-Bold', 
+        fontSize:25,
+        color:'white'
+    },
+    button_recorder: {
+        backgroundColor:'#2E206F', 
+        width:120, 
+        height:120, 
+        borderRadius:60, 
+        justifyContent:'center', 
+        alignItems:'center', 
+        marginTop:30
+        // textAlign:'center'
     }, 
     text_recorder:{
         fontFamily:"Harmattan-Regular", 
         color:"white", 
         fontSize:15
-    }
+    }, 
+    microphone:{
+        width:90, 
+        height:90, 
+        borderRadius:45,
+        justifyContent:'center', 
+        alignItems:'center',
+        backgroundColor:'#8044CD',
+    }, 
+    icon_mic:{
+        width:40, 
+        height:40
+    },
+
+    button_play_view:{
+        flex:1.5,
+        flexDirection:'row',
+        // justifyContent:'center',
+        alignItems:'center',
+        
+        paddingRight:20,
+        paddingLeft:20
+    },
+    button_play: {
+        height:40,
+        width:40,
+        borderRadius: 180, 
+        position:'absolute',
+        right:30,
+        backgroundColor:'#0F143A',
+        justifyContent:'center',
+        alignItems:'center'
+        // marginRight:10
+    },
+    triangle: {
+        width: 0,
+        height: 0,
+        backgroundColor: 'transparent',
+        borderStyle: 'solid',
+    },
+    arrowRight: {
+        borderTopWidth: 8,
+        borderRightWidth: 0,
+        borderBottomWidth: 8,
+        borderLeftWidth: 12,
+        borderTopColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: 'transparent',
+        borderLeftColor: "white",
+        borderRadius:5
+    },
 })

@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet,KeyboardAvoidingView,ScrollView} from 'react-native'
+import { StyleSheet,KeyboardAvoidingView,ScrollView, View} from 'react-native'
 import QuestionInput from '../components/questionInput'
 import AudioRecorder from '../components/AudioRecorder';
+import AudioRecorder2 from '../components/AudioRecorder2';
 import { DateTimePickerComponent } from '../components/dateTimePicker';
 import {connect} from 'react-redux'
 
@@ -59,7 +60,7 @@ this.saveInput('date',formatedDate)
             behavior={Platform.OS === "ios" ? "position" : "position"}  
             keyboardVerticalOffset={-200}>
             
-            <AudioRecorder></AudioRecorder>
+            
 
             <ScrollView contentContainerStyle={styles.container}>
                 
@@ -74,6 +75,9 @@ this.saveInput('date',formatedDate)
                 onChange = {this.saveInput.bind(this)}
                 >
                 </QuestionInput>
+
+               
+
                 <QuestionInput 
                 multilineAuthorized = {true} 
                 height = {200} 
@@ -83,17 +87,26 @@ this.saveInput('date',formatedDate)
                 onChange = {this.saveInput.bind(this)}
                 >
                 </QuestionInput>
+                <View style = {styles.audio_recorder}>
+                    <AudioRecorder></AudioRecorder>
+                    {/* <AudioRecorder2></AudioRecorder2> */}
+                </View>
                 
             </ScrollView>
+            
             
         </KeyboardAvoidingView>
       )}
     }
 const styles = StyleSheet.create({
     container: {
-        height:3000, 
+        height:800, 
         backgroundColor:"#0F1538", 
-
+        // alignItems:'center'
+    }, 
+    audio_recorder:{
+        width:'100%',
+        alignItems:'center'
     }
 
 })
