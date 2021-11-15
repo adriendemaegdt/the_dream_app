@@ -1,10 +1,15 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button, Pressable, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Button, Pressable, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native'
 import { Audio } from 'expo-av';
-import * as firebase from 'firebase'
+
 import {useState, useRef} from "react";
 import * as FileSystem from 'expo-file-system';
 import AudioRecord from './AudioRecord';
+
+import * as firebase from 'firebase'
+// import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+// import axios from 'axios';
 
 // import Microphone from '../assets/images/microphone.svg';
 
@@ -35,6 +40,7 @@ export default function AudioRecorder(){
       
       const db = firebase.database();
       
+      const [transcript, setTranscript] = useState('Mon reve')
       const [RecordedURI, SetRecordedURI] = useState('');
       const [isRecording, setIsRecording] = useState(false);
       const [recording, setRecording] = useState(null);
@@ -113,12 +119,11 @@ export default function AudioRecorder(){
           // Do nothing -- we are already unloaded.
         }
         let result = recording.getURI();
-        console.log("reggg")
-        console.log(result)
+        
         SetRecordedURI(result); 
 
         const info = await FileSystem.getInfoAsync(result);
-        console.log(`FILE INFO: ${JSON.stringify(info)}`);
+        // console.log(`FILE INFO: ${JSON.stringify(info)}`);
         await Audio.setAudioModeAsync({
           allowsRecordingIOS: false,
           interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -245,14 +250,41 @@ export default function AudioRecorder(){
         }
       };
 
+      const downloadTranscript = async () =>{
+
+    
+        firebase
+        .storage()
+        .ref('transcripts/nameOfThe0.38379679470797035.m4a-20211112053155.json')
+        .getDownloadURL().then((url) =>{
+                // console.log(url)
+                const xhr = new XMLHttpRequest();
+                xhr.responseType = 'json';
+                xhr.open('GET', url);
+                xhr.send();
+               
+                xhr.onload = function() {
+                    let response = xhr.response
+                    let text_transcript = response.results[0].alternatives[0].transcript
+                    
+                    setTranscript(text_transcript)
+                    // sleep(2000)
+                  };
+                
+                
+            })
+            
+      }
 
     return(
         <View>
             <View style= {styles.container}>
+               
                 
                 <TouchableOpacity 
                     style = {styles.playSound}
                     onPress={playSound}
+                    // onPress={console.log(transcript)}
                 >
                     
                     <Text style= {styles.text_time}>
@@ -294,7 +326,10 @@ export default function AudioRecorder(){
                     onLongPress= {startRecording}
                     onPressOut= { () => {
                                             stopRecording() ;
-                                            uploadAudio()
+                                            // uploadAudio()
+                                            downloadTranscript()
+                                            
+                                            
                                         }
                                 }
                 >
