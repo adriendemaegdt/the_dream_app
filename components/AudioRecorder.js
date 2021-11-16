@@ -326,8 +326,8 @@ export default function AudioRecorder(){
                     onLongPress= {startRecording}
                     onPressOut= { () => {
                                             stopRecording() ;
-                                            // uploadAudio()
-                                            downloadTranscript()
+                                            uploadAudio()
+                                            // downloadTranscript()
                                             
                                             
                                         }

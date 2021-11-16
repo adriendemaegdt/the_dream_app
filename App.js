@@ -32,6 +32,7 @@ import StackResume from './navigation/StackResume';
 import { Provider } from 'react-redux'
 import Store from './Store/configureStore'
 
+
 // FIREBASE
 
 // import { getFirestore, setDoc, doc } from 'firebase/firestore';
@@ -41,7 +42,7 @@ import Store from './Store/configureStore'
 import * as firebase from 'firebase'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDTzGLl_JO7majGwKcqedCIYD5gM5cPf5Y",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "appdream.firebaseapp.com",
   projectId: "appdream",
   storageBucket: "appdream.appspot.com",
