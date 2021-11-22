@@ -16,18 +16,19 @@ import * as firebase from 'firebase'
 
 export default function AudioRecorder(){
 
+    // la configuration de ma cloud function appel l'api avec le format pour IOS ! Attention verifier si le format android amrche aussi
     const recordingSettings = {
         android: {
           extension: ".m4a",
           outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
-          audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+          audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_WB,
           sampleRate: 44100,
           numberOfChannels: 2,
           bitRate: 128000,
         },
         ios: {
           extension: ".m4a",
-          outputFormat: Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC,
+          outputFormat: Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM,
           audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN,
           sampleRate: 44100,
           numberOfChannels: 2,
@@ -112,8 +113,6 @@ export default function AudioRecorder(){
 
         try {
           await recording.stopAndUnloadAsync();
-        //   console.log(_recording)
-          
         //   await recording._cleanupForUnloadedRecorder();
         } catch (error) {
           // Do nothing -- we are already unloaded.
@@ -182,8 +181,6 @@ export default function AudioRecorder(){
             console.log(error);
         }
         };
-
-
 
     //   Upload Audio 
 

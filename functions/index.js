@@ -1,11 +1,11 @@
 const functions = require("firebase-functions");
 const admin = require('firebase-admin')
-const speech = require('google-cloud/speech')
+const speech = require('@google-cloud/speech')
 
 admin.initializeApp()
 const db = admin.firestore()
 
-exports.AudioCreated = functions.firestore.document('users/{user_id}').onCreate( doc => {
+exports.AudioCreated = functions.firestore.document('users/{user_id}').onCreate( async (doc) => {
     const values = doc.data()
     // functions.logger.info(values, {structuredData: true});
     return values 
@@ -24,12 +24,16 @@ exports.getAudioTranscript = functions.storage.object().onFinalize( async(object
     
     const client = new speech.SpeechClient()
 
-    const gcsUri = 'gs://'+bucket_name+'/o/'+file_name
+    const gcsUri = 'gs://'+bucket_name+'/'+file_name
 
     const config = {
-        encoding: 'MP3',
+        encoding: 'LINEAR16',
         sampleRateHertz: 44100,
+        audioChannelCount: 2,
+        enableSeparateRecognitionPerChannel: false,
         languageCode: 'fr-FR',
+        enableSpokenPunctuation: true
+
       };
       
       const audio = {
@@ -40,18 +44,25 @@ exports.getAudioTranscript = functions.storage.object().onFinalize( async(object
         config: config,
         audio: audio,
       };
-
+      functions.logger.info(request, {structuredData: true});
       // Detects speech in the audio file. This creates a recognition job that you
     // can wait for now, or get its result later.
     
     const [operation] = await client.longRunningRecognize(request);
     // Get a Promise representation of the final result of the job
     const [response] = await operation.promise();
+    functions.logger.info(response.results, {structuredData: true});
+
     const transcription = response.results
                             .map(result => result.alternatives[0].transcript)
                             .join('\n');
     
     functions.logger.info(transcription, {structuredData: true});
+    functions.logger.info(db, {structuredData: true});
+    const dream_ref = db.collection('dreams').doc('dream_id')
+    functions.logger.info(dream_ref, {structuredData: true});
+    const res = await dream_ref.update({transcript: {transcription}})
+    // await db.ref('/users/user_id/dreams/dream_id').set({transcript: transcription})
     return transcription
 })
 
