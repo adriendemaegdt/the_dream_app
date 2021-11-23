@@ -36,26 +36,32 @@ const TopTabNewDream = (props) => {
   return(
 
     <topTab.Navigator
-    screenOptions={{
-      
-      headerTintColor: '#fff',
-      headerTitleStyle: { fontWeight: 'bold' }
-    }}
     headerMode = 'float'
     ScreenOptions = {{animationEnabled: true}}
     mode= 'modal' 
-    
-    tabBarOptions={{
-      showLabel:true,
-      labelStyle: { fontSize: 18, fontFamily:'Harmattan-Bold' },
-      style:{
+    screenOptions={{
+      tabBarShowLabel:true,
+      tabBarLabelStyle:{
+        fontSize: 18, fontFamily:'Harmattan-Bold'
+      },
+      tabBarStyle:{
         
         backgroundColor:"#0F1538",
         height:70,
       },
-      activeTintColor:'white', 
-      indicatorStyle:{backgroundColor:'white'}
+      tabBarIndicatorStyle: {
+        "backgroundColor": "white"
+      },
+      tabBarStyle: {
+        "backgroundColor": "#0F1538",
+        "height": 70
+      },
+      tabBarActiveTintColor: "white",
+      headerTintColor: '#fff',
+      headerTitleStyle: { fontWeight: 'bold' }
     }}
+    
+    
     >
       <topTab.Screen name="RecitScreen" component={RecitScreen}
       

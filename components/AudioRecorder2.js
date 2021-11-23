@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyleSheet, View, Text, Button, Pressable, Image } from 'react-native'
 import { Audio } from 'expo-av';
-import * as firebase from 'firebase'
+
 import {useState, useRef , useEffect} from "react";
 import * as FileSystem from 'expo-file-system';
 
+
+import { db } from '../firebase-config';
 // import Microphone from '../assets/images/microphone.svg';
 
 let recording = new Audio.Recording();
@@ -12,7 +14,7 @@ let recording = new Audio.Recording();
 export default function AudioRecorder2(){
 
       
-    const db = firebase.database();
+    
     
     // const [isRecording, setIsRecording] = useState(false);
     const [sound, setSound] = useState(null);

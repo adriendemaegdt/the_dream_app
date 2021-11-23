@@ -52,7 +52,7 @@ function StackResume({props, navigation, route}){
         
         >
          <Stack.Screen
-  
+            
             options={{headerShown: false}} 
             name='Journal'
             component={JournalScreen}

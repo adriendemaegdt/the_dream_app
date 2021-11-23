@@ -11,7 +11,7 @@ import Tabs from './bottom_tabs';
 import StackResume from './StackResume';
 import ResumeScreen from '../screens/ResumeScreen';
 import {connect} from 'react-redux'
-import firebase from 'firebase' 
+
 
 
 
@@ -29,7 +29,7 @@ function StackNewDream(props) {
   const saveNewDream = (navigation) => {
     const action = {type : 'SAVE_DREAM' ,value : props.newDream}
     props.dispatch(action)
-    navigation.navigate('Home')
+    navigation.navigate('Journal')
     
   }
 
@@ -64,7 +64,7 @@ function StackNewDream(props) {
         >
            <Stack.Screen
             options={{headerShown: false}} 
-            name='Home'
+            name='Journal'
             component={Tabs}
           ></Stack.Screen>
 
@@ -104,7 +104,7 @@ function StackNewDream(props) {
         })}
         >
             <Stack.Screen
-                options={{headerShown: true}} 
+                options={{headerShown: false}} 
                 options={ () => ({
                   title: '',
                   color:'red'

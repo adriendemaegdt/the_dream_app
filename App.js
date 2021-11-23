@@ -3,63 +3,19 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
-import { useFonts } from 'expo-font'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TabNavigator, StackNavigator, createAppContainer } from 'react-navigation'
 
-import Tabs from './navigation/bottom_tabs';
-import NewDream from './navigation/TopTabNewDream';
-import NestedStackNavigator from './navigation/StackNewDream';
 
-import OneDream from './components/oneDream';
-import Plus from './components/plus';
-import { render } from 'react-dom';
-import {LinearGradient} from 'expo-linear-gradient'
-import Header from './components/header';
-import JournalScreen from './screens/journalScreen';
-import NavBar from './components/navBar';
-import QuestionInput from './components/questionInput';
-import RecitScreen from './screens/RecitScreen';
-import DetailScreen from './screens/DetailScreen';
-import InterpretationScreen from './screens/InterpretationScreen';
-import StackNewDream from './navigation/StackNewDream';
-import AuthScreen from './screens/AuthScreen';
-import ResumeScreen from './screens/ResumeScreen';
-import StackResume from './navigation/StackResume';
+
 // REDUX
 import { Provider } from 'react-redux'
 import Store from './Store/configureStore'
 
+import LoginStack from './navigation/loginStack'
+
 
 // FIREBASE
-
-// import { getFirestore, setDoc, doc } from 'firebase/firestore';
-// const firebase = require('firebase')
-// require('firebase/firestore')
-
-import * as firebase from 'firebase'
-
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: "appdream.firebaseapp.com",
-  projectId: "appdream",
-  storageBucket: "appdream.appspot.com",
-  messagingSenderId: "422707936108",
-  appId: "1:422707936108:web:2dd39f351423b4cbd61149"
-};
-
-if ( firebase.apps.length === 0 ){
-  firebase.initializeApp(firebaseConfig)
-}
-// firebase.initializeApp(firebaseConfig)
-
-
-const db = firebase.firestore();
-
-export {db} 
-
+import { db } from './firebase-config';
+import { auth } from './firebase-config';
 
 const getFonts = () => Font.loadAsync({
   'Harmattan-Bold':require('./assets/fonts/Harmattan-Bold.ttf'),
@@ -89,13 +45,13 @@ export default function App(){
       <Provider store = {Store}>
         {/* <AuthScreen></AuthScreen> */}
         {/* <ResumeScreen></ResumeScreen> */}
-        
-        <NavigationContainer>
+        <LoginStack></LoginStack>
+        {/* <NavigationContainer>
           <StackNewDream>
             
           </StackNewDream>
           {/* <StackResume></StackResume> */}
-        </NavigationContainer>
+        {/* </NavigationContainer> */} 
       </Provider>
 
     )

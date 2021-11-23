@@ -6,7 +6,7 @@ import {useState, useRef} from "react";
 import * as FileSystem from 'expo-file-system';
 import AudioRecord from './AudioRecord';
 
-import * as firebase from 'firebase'
+import { db } from '../firebase-config';
 // import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 // import axios from 'axios';
@@ -39,7 +39,7 @@ export default function AudioRecorder(){
         },
       };
       
-      const db = firebase.database();
+      
       
       const [transcript, setTranscript] = useState('Mon reve')
       const [RecordedURI, SetRecordedURI] = useState('');

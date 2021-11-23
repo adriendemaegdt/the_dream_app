@@ -33,20 +33,27 @@ const Tabs = (props) => {
 
     return(
     <Tab.Navigator
-    
-    tabBarOptions={{
-        showLabel:false,
-        style:{
+
+    screenOptions={{
+        tabBarShowLabel:false,
+        headerShown:false,
+        tabBarStyle:[
+            {
             position:'absolute',
             borderRadius:6,
             backgroundColor:"#252947",
             height:70,
             ...styles.shadow
         }, 
+        ]
     }}
+    
     >
         
-        <Tab.Screen name="Journal" component={JournalScreen}
+        <Tab.Screen 
+        name="Mes rêves" 
+        component={JournalScreen}
+        options={{headerShown: false}} 
 
         options={ ({route}) => ({
             // tabBarVisible: this.getTabBarVisibility(route),
