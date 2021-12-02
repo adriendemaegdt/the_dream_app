@@ -3,18 +3,20 @@ import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import {auth} from '../firebase-config'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import { doc, setDoc } from '@firebase/firestore';
+import { db } from '../firebase-config';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const navigation = useNavigation()
-  console.log(auth)
+  // console.log(auth)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
-        navigation.replace("Home")
+        navigation.replace("StackNewDream")
       }
     })
 
@@ -28,17 +30,24 @@ const LoginScreen = () => {
       signInWithEmailAndPassword(auth,email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
+        console.log('Logged in with:', user);
+        
+
+        
       })
       .catch(error => alert(error.message))
   }
 
-  const handleSignUp = () => {
+  const handleSignUp =  () => {
     
       createUserWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
+        console.log('Logged in with:', user);
+        setDoc(doc(db, "users", user.uid), {
+          dreams: {}, 
+          profil: {}
+        })
       })
       .catch(error => alert(error.message))
   }
@@ -69,13 +78,13 @@ const LoginScreen = () => {
           onPress={handleLogin}
           style={styles.button}
         >
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Je me connecte</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleSignUp}
           style={[styles.button, styles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonOutlineText}>Je m'enregistre</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

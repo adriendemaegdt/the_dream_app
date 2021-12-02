@@ -8,12 +8,28 @@ import Header2 from '../components/header2'
 
 import SearchIcon from '../assets/images/search_icon.svg';
 
+
+
+
+
+import { useState, useEffect } from "react";
+import { db, auth } from '../firebase-config';
+import { addDoc, doc, setDoc, collection, getDocs, getDoc, query } from "firebase/firestore";
+import { useFocusEffect } from '@react-navigation/native';
+
+import { firestoreConnect } from 'react-redux-firebase'
+import { useFirestoreConnect } from 'react-redux-firebase'
+import { useSelector } from 'react-redux'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 
-class JournalScreen extends React.Component {
 
-    render() {
-        
+
+
+
+function JournalScreen({data_dreams}) {
+ 
+
         return (
             <View style={styles.container}>
                 <Header style = {styles.header}></Header>
@@ -29,11 +45,14 @@ class JournalScreen extends React.Component {
                     </View>
                     
                 </View>
-
+                
                 <View style={styles.flatlist_container}>
                     <FlatList 
                     contentContainerStyle={styles.flatlist}
-                    data = {this.props.myDreams}
+                    // data = {props.myDreams}
+                    // data = {data.user_dreams}
+                    data = {data_dreams}
+                   
                     keyExtractor={(item) => item.title.toString()}
                     renderItem = {({item}) => <OneDream dream_infos = {item} /> }
                 />
@@ -41,7 +60,7 @@ class JournalScreen extends React.Component {
         </View>
         )
     }
-}
+
 const styles = StyleSheet.create({
 
     container:{
@@ -129,10 +148,32 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
+    console.log(state)
+    const dreams = state.firestore.ordered.user_dreams
     return {
-        myDreams: state.myDreams
+        data_dreams: dreams,
+        // uid: state.firebase.auth.uid
     }
   }
-export default connect(mapStateToProps)(JournalScreen)
+const mapDispatchToProps = state => {
+    return {
+        // myDreams: state.myDreams
+    }
+  }
+export default compose (
+
+    connect(mapStateToProps),
+
+    firestoreConnect( ownProps => [
+        {collection: 'users', doc : "Qh8B6z4iiLUXe1O633cp8O8wLDI2", subcollections: [{ collection: "dreams" }], storeAs: 'user_dreams' }
+    // tuto collection: "dreams", 
+    // where: ["authorId", "==", ownProps.uid],
+    // orderBy:["date", "desc"]
+    // 
+    
+    ]),
+    
+)(JournalScreen);
+
 

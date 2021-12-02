@@ -2,19 +2,50 @@ const functions = require("firebase-functions");
 const admin = require('firebase-admin')
 const speech = require('@google-cloud/speech')
 
+
+
 admin.initializeApp()
 const db = admin.firestore()
 
-exports.AudioCreated = functions.firestore.document('users/{user_id}').onCreate( async (doc) => {
-    const values = doc.data()
-    // functions.logger.info(values, {structuredData: true});
-    return values 
+
+exports.UserCreated = functions.auth.user().onCreate( (user) => {
+    
+    functions.logger.info(user, {structuredData: true});
+    db.collection('users').doc(user.uid).collection("dreams").doc('dream_0').set({
+      title:'',
+      story:''
+    })
+    .then(() => {
+      console.log("User successfully created!");
+  })
+  .catch((error) => {
+      console.error("Error creating document: ", error);
+  });
+
+  // Creer un nouveau user avec une collections de dreams et un json profil
+
+  db.collection('users').doc(user.uid).set({
+    profil:{
+      first_name: '',
+      last_name:'',
+      age:'',
+      proffession:'',
+      date_of_birth: '', 
+
+    }
+
+  })
+    .then(() => {
+      console.log("Profil user successfully created!");
+  })
+  .catch((error) => {
+      console.error("Error creating profil: ", error);
+  });
+    
+  
+    
     // await db.collection('logging').add({description: "Email waas sent to user with username: values.user_id " })
 
-    // appdream.appspot.com/nameOfThe0.3331167377098728.m4a/1637059032934955
-    // https://firebasestorage.googleapis.com/v0/b/appdream.appspot.com/o/transcripts%2FnameOfThe0.38379679470797035.m4a-20211112053155.json?alt=media&token=9b1de837-5f63-4e3d-b16e-0341b4b1a629
-   
-    // Quand un user est crée, une collection logging avec un description et aussi créee
 })
 
 exports.getAudioTranscript = functions.storage.object().onFinalize( async(object)  => {

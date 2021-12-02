@@ -5,6 +5,9 @@ import RecitScreen from '../screens/RecitScreen';
 import DetailScreen from '../screens/DetailScreen';
 import InterpretationScreen from '../screens/InterpretationScreen';
 import {connect} from 'react-redux'
+// import { SEND_DREAM_TO_DB } from '../Store/Reducers/dreamReducer';
+
+
 
 
 const topTab = createMaterialTopTabNavigator();
@@ -25,6 +28,7 @@ const TopTabNewDream = (props) => {
         onPress={()=>{
           saveNewDream()
           props.navigation.goBack
+          
         }} />
       ),
     });
@@ -97,4 +101,9 @@ const mapStateToProps = (state) => {
     newDream: state.newDream
   }
 }
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     sendDreamToDataBase
+//   }
+// }
 export default connect(mapStateToProps)(TopTabNewDream)
