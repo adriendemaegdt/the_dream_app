@@ -3,13 +3,10 @@
 
 import { initializeApp } from "firebase/app"
 
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { addDoc, getFirestore, query } from 'firebase/firestore'
-import { doc, collection, setDoc, updateDoc, getDocs } from "firebase/firestore";
-import {FIREBASE_API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID} from '@env'
-import { enableIndexedDbPersistence } from "firebase/firestore"; 
+import {getAuth} from 'firebase/auth'
+import {getFirestore} from 'firebase/firestore'
 
-import React, { useState, useEffect } from "react";
+import {FIREBASE_API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID} from '@env'
 
 
 
@@ -40,29 +37,5 @@ const auth = getAuth(app)
 
 
 
-// function GetDataDreams() {
 
-//   const [dreams, setDreams] = useState([]);
-
-//   useEffect(() => {
-//     const getDataDream = async () => {
-//         const uid = auth.currentUser.uid
-//         const dreamsCollectionRef = query(collection(db, "users", uid, "dreams" ))
-//         const querySnapshot = await getDocs(dreamsCollectionRef);
-//         const data = []
-//         querySnapshot.forEach((doc) => {
-//             data.push({...doc.data(), id:doc.id })
-//         })
-//         setDreams(data)
-        
-//     }
-//     getDataDream();
-//     }, [])
-  
-//  return(dreams);
- 
-//  }
-//  console.log(GetDataDreams())
-
-
-export {db, auth , app}
+export {db, auth }

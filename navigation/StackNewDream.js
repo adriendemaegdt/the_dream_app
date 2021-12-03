@@ -12,110 +12,61 @@ import StackResume from './StackResume';
 import ResumeScreen from '../screens/ResumeScreen';
 import {connect} from 'react-redux'
 
+
 import { db, auth } from '../firebase-config';
 import { addDoc, doc, setDoc, collection, getDocs, getDoc, query } from "firebase/firestore";
-import { set } from 'react-native-reanimated';
-
-import { useState, useEffect } from "react";
-
-
 
 
 const Stack = createStackNavigator()
 
 
 function StackNewDream(props) {
-  
-  const clearNewDream = () => {
-    const action = {type : 'CLEAR_DREAM' ,value : {}}
-    props.dispatch(action)
+
     
-  }
+                // GET DATA OF STATE
 
-  const saveNewDream = (navigation) => {
-    const action = {type : 'SAVE_DREAM' ,value : props.newDream}
-    props.dispatch(action)
-    navigation.navigate('Journal')
-    
-  }
+    const data_dream_to_send = props.newDream.dreamReducer.newDream
 
-  //
-  // Firebase Functions
-  //
+    // const handleSubmit = () => {
+    //     if (data_dream_to_send)
+    // }
 
-  const getDataDream = async () =>{
+                // SEND NEW DREAM TO FIRESTORE
 
-    if (auth.currentUser != null) {
-    const uid = auth.currentUser.uid
+    const sendDreamToDb = async () => {
+
+                            ///
+                            /// get uid (id of user)
+                            ///
+        const uid =  auth.currentUser.uid
+
+                            ///
+                            /// Get number of dreams 
+                            ///
+        const dreamsCollectionRef = query(collection(db, "users", uid, "dreams" ))
+        const querySnapshot = await getDocs(dreamsCollectionRef);
+        let numberOfDreams = 0
+        querySnapshot.forEach((doc) => {
+            numberOfDreams += 1
+            // console.log(doc.id, " => ", doc.data());
+        });
+
+                            ///
+                            /// Send dream to db
+                            ///
+        const dreamDocRef = doc(db,"users", uid , "dreams", "dream_"+numberOfDreams  )
+        await setDoc(dreamDocRef, data_dream_to_send);
     }
-    else{
-        const uid = 'kAsMQWA5NmS4IdTi6SBKqqAQOOj2'
-    }
-    // const uid = auth.currentUser.uid
-    const data = []
-    const dreamsCollectionRef = query(collection(db, "users", uid, "dreams" ))
-    const querySnapshot = await getDocs(dreamsCollectionRef);
-    querySnapshot.forEach((doc) => {
-      const dream = doc.data()
-      Object.assign(dream, {"id": doc.id})
 
-      data.push(dream)
-    });
-    
+    //Function that takes the dispatched action clear new dream in dispatchstatetoprops and tell to navigate back
 
-  }
+    const clearNewDream = ( navigation) => {
+        console.log(data_dream_to_send)
 
-
-
-  const sendDreamToDb = async () => {
-
-///
-/// get uid (id of user)
-///
-    const uid =  auth.currentUser.uid
-
-///
-/// Get number of dreams 
-///
-      const dreamsCollectionRef = query(collection(db, "users", uid, "dreams" ))
-      const querySnapshot = await getDocs(dreamsCollectionRef);
-      let numberOfDreams = 0
-      querySnapshot.forEach((doc) => {
-        numberOfDreams += 1
-        // console.log(doc.id, " => ", doc.data());
-      });
-      console.log(numberOfDreams)
-
-///
-/// get dream data from state
-///
-const data_dream = props.newDream
-console.log(data_dream)
-
-///
-/// Send dream to db
-///
-      const dreamDocRef = doc(db,"users", uid , "dreams", "dream_"+numberOfDreams  )
-      await setDoc(dreamDocRef, data_dream);
-}
-
-// essai use State
-
-// const [dreams, setDreams] = useState([]);
-
-// useEffect(() => {
-//    const getDataDream = async () => {
-//       const uid = auth.currentUser.uid
-//       console.log(uid)
-//       const dreamsCollectionRef = query(collection(db, "users", uid, "dreams" ))
-//       const data = await getDocs(dreamsCollectionRef);
-//       setDreams(dreamsCollectionRef.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-     
-//    }
-//    getDataDream();
-// }, [])
-
-// console.log(dreams)
+        props.clearNewDream()
+        navigation.navigate('Journal')
+        
+        }
 
     return (
       <Stack.Navigator
@@ -131,11 +82,9 @@ console.log(data_dream)
               
               onPress={ () => {
 
-                // getDataDream()
-                
                 sendDreamToDb()
-
-                 saveNewDream(navigation); 
+                clearNewDream(navigation)
+                
               }}
               title="Sauvegarder"
               color="white"
@@ -214,7 +163,14 @@ console.log(data_dream)
 
   const mapStateToProps = (state) => {
     return {
-      newDream: state.newDream
+        
+      newDream: state
     }
 }
-export default connect(mapStateToProps)(StackNewDream)
+
+const mapDispatchToProps = dispatch => {
+    return {
+        clearNewDream: navigation => dispatch({type : 'ADD_DREAM' ,value : ""})
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(StackNewDream)

@@ -1,13 +1,12 @@
 import React from 'react'
 import { StyleSheet, View, Text, Button } from 'react-native'
-import data_dream from '../data/data_dream'
+
 import {connect} from 'react-redux'
 
 class EmotionComponent extends React.Component {
     
     saveEmotion = (field,value) => {
         const action = {type : 'SAVE_VALUE' ,value : {[field] : value}}
-        console.log(action)
         this.props.dispatch(action)
     }
 

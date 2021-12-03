@@ -2,58 +2,6 @@ import { db, auth } from "../firebase-config"
 import { addDoc, doc, setDoc, collection, getDocs, getDoc, query } from "firebase/firestore";
 import { useState, useEffect } from "react";
 
-// Essai 1 ! 
-// const [dreams, setDreams] = useState([]);
-
-// useEffect(() => {
-//    const getDataDream = async () => {
-//       const uid = auth.currentUser.uid
-//       const dreamsCollectionRef = query(collection(db, "users", uid, "dreams" ))
-//       const data = await getDocs(dreamsCollectionRef);
-//       setDreams(dreamsCollectionRef.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-     
-//    }
-//    getDataDream();
-// }, [])
-
-// console.log(dreams)
-
-
-// Essai 2
-
-// const getDataDream = async () =>{
-//    const uid = auth.currentUser.uid
-//    // const data = []
-//    const dreamsCollectionRef = query(collection(db, "users", uid, "dreams" ))
-
-//    getDocs(dreamsCollectionRef)
-//          .then((snapshot) => {
-//             let dreams = []
-//             snapshot.docs.forEach((doc) => {
-//                dreams.push({...doc.data(), id:doc.id })
-//             })
-//             // console.log(dreams)
-//             return dreams
-
-//          })
-         
-//    // const querySnapshot = await getDocs(dreamsCollectionRef);
-//    // const data = querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
-
-//  }
-
-
-
-// const dreams = getDataDream()
-// .then(dreams => {
-//    const 
-//    console.log("vasy petiot")
-//    return dreams 
-// })
-// .catch(err => console.error(err))
-
-// console.log(data)
-
 export default data = [
     {
        id:181808,

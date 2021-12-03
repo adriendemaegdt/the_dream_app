@@ -149,8 +149,10 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
-    console.log(state)
+    
+    
     const dreams = state.firestore.ordered.user_dreams
+    
     return {
         data_dreams: dreams,
         // uid: state.firebase.auth.uid
@@ -166,7 +168,7 @@ export default compose (
     connect(mapStateToProps),
 
     firestoreConnect( ownProps => [
-        {collection: 'users', doc : "Qh8B6z4iiLUXe1O633cp8O8wLDI2", subcollections: [{ collection: "dreams" }], storeAs: 'user_dreams' }
+        {collection: 'users', doc: auth.currentUser.uid  , subcollections: [{ collection: "dreams" }], storeAs: 'user_dreams' }
     // tuto collection: "dreams", 
     // where: ["authorId", "==", ownProps.uid],
     // orderBy:["date", "desc"]
