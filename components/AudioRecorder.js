@@ -6,8 +6,14 @@ import {useState, useRef} from "react";
 import * as FileSystem from 'expo-file-system';
 import AudioRecord from './AudioRecord';
 
-import { db } from '../firebase-config';
-// import { getStorage, ref, getDownloadURL } from "firebase/storage";
+// import firebase from 'firebase/compat/app'
+
+import * as firebase from 'firebase/compat'
+import 'firebase/storage'
+import { db, auth } from '../firebase-config';
+import { storage } from '../firebase-config';
+
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 // import axios from 'axios';
 
@@ -96,6 +102,7 @@ export default function AudioRecorder(){
 
         let timer = setInterval(findDuration, 1000)
         setTimer(timer)
+		setIsRecording(true)
         
       };
 
@@ -143,7 +150,7 @@ export default function AudioRecorder(){
           }
         );
         setSound(_sound);
-        // setIsRecording(false);
+        setIsRecording(false);
         // console.log(isRecording)
       };
 
@@ -207,18 +214,31 @@ export default function AudioRecorder(){
         if (blob != null) {
         const uriParts = uri.split(".");
         const fileType = uriParts[uriParts.length - 1];
-        const fileName = Math.random().toString()
-        firebase
-            .storage()
-            .ref()
-            .child(`nameOfThe${fileName}.${fileType}`)
-            .put(blob, {
-            contentType: `audio/${fileType}`,
-            })
-            .then(() => {
-            console.log("Sent!");
-            })
-            .catch((e) => console.log("error:", e));
+        const date = new Date()
+        const uid = auth.currentUser.uid
+        
+        const date_for_name = date.toLocaleString('en-US', { 
+          day: "2-digit",
+          year: 'numeric', // numeric, 2-digit
+          month: '2-digit', // numeric, 2-digit, long, short, narrow
+          hour: '2-digit', // numeric, 2-digit
+          minute: '2-digit',
+      
+      }).replaceAll("/", "-").replace(", ", "-").substring(0,16)
+        const fileName = date_for_name + uid
+
+        // ------------------V9-------------------
+
+        const storageRef = ref(storage, `${fileName}.${fileType}`)
+        const metadata = {
+          contentType: `audio/${fileType}`,
+        };
+
+        uploadBytes(storageRef, blob, metadata).then((snapshot) => {
+          console.log('Audio has been sent to storage');
+        });
+
+
         } else {
         console.log("erroor with blob");
         }
@@ -227,8 +247,9 @@ export default function AudioRecorder(){
     }
     };
 
-    // Dowload audio
-
+//
+// Download audio
+//
     const downloadAudio = async () => {
         const uri = await firebase
           .storage()
@@ -246,6 +267,11 @@ export default function AudioRecorder(){
           console.log("error:", error);
         }
       };
+
+
+// 
+// Download Transcript
+//
 
       const downloadTranscript = async () =>{
 
@@ -277,8 +303,9 @@ export default function AudioRecorder(){
         <View>
             <View style= {styles.container}>
                
+               <Text style= {styles.text_time}> Maintenir pour enregistrer</Text>
                 
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                     style = {styles.playSound}
                     onPress={playSound}
                     // onPress={console.log(transcript)}
@@ -287,7 +314,7 @@ export default function AudioRecorder(){
                     <Text style= {styles.text_time}>
                         Réecouter mon rêve ! 
                     </Text>
-                    
+                     */}
                     {/* Reutilisable pour un component dream recap */}
                     {/* <View style= {styles.button_play_view}>
                         
@@ -300,47 +327,49 @@ export default function AudioRecorder(){
                         </View>
                     </View> */}
 
-                </TouchableOpacity>
+                {/* </TouchableOpacity> */}
 
 
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                     style = {styles.playSound}
                     onPress={stopSound}
                 >
                     <Text style= {styles.text_time}>
                         Stopper l'écoute 
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+
             </View>
                 
             <View  style= {styles.container_recorder}>
-                <Text style= {styles.text_time}>
-                    {duration} secondes
-                </Text>
+                
                 <Pressable 
                     style={styles.button_recorder}
                     hitSlop = {{top: 0, bottom: 50, left: 50, right: 50}}
                     onLongPress= {startRecording}
-                    onPressOut= { () => {
-                                            stopRecording() ;
+                    onPressOut= { () => { if (isRecording){
+                                            console.log("stop recording")
+											stopRecording() ;
                                             uploadAudio()
-                                            // downloadTranscript()
-                                            
-                                            
+					}
+                                        else{
+                                            alert("maintenir pour enregistrer")
+                                        }
                                         }
                                 }
                 >
 
                     <View style={styles.microphone}>
-                        {/* <Microphone style = {styles.icon_mic}> */}
                         <Image source = {require('../assets/images/microphone.png')}
                                 style = {styles.icon_mic}
-                    >
-
+                        >
                         </Image>
-                        {/* </Microphone> */}
+                        
                     </View>
                 </Pressable>
+                <Text style= {styles.text_time}>
+                    {duration} secondes
+                </Text>
             </View>
         </View>
         

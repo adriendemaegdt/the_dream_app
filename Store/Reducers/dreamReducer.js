@@ -30,15 +30,79 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 //
 //Initial State
 //
-// const date = new Date()
-// date = date.toString().substring(4,15)
+const today = new Date()
+let today_for_analysis = today.toLocaleString('en-US', {
+  weekday: 'short', // long, short, narrow
+  day: '2-digit', // numeric, 2-digit
+  year: 'numeric', // numeric, 2-digit
+  month: '2-digit', // numeric, 2-digit, long, short, narrow
+  hour: '2-digit', // numeric, 2-digit
+  minute: '2-digit', // numeric, 2-digit
+  second: 'numeric', // numeric, 2-digit
+});
+
+const formatDate = (date) =>{
+
+    var months = { 
+      Jan: "Janvier", 
+      Feb:"Février", 
+      Mar:'Mars', 
+      Apr:'Avril', 
+      May: 'Mai', 
+      Jun: 'Juin', 
+      Jul: 'Juillet', 
+      Aug:'Aout', 
+      Sep: 'Septembre', 
+      Oct: 'Octobre', 
+      Nov: 'Novembre', 
+      Dec: 'Décembre'
+  }
+  
+  
+  let formated_date = date.toString().substring(4, 15)
+  let theMonth = ""
+  
+    Object.keys(months).forEach(key => {
+              
+      if (formated_date.substring(0,3) === key.toString()) {
+           theMonth = months[key]
+      }
+    });
+    
+    let formatedDate = formated_date.substring(4,6) + ' ' + theMonth  + ' ' + formated_date.substring(7,15)
+
+    return formatedDate
+}
+
+
+
 const initialState = {
   newDream: {
-    title:"", 
-    story:"", 
-    date: ""
+    title:"Sans titre", 
+    story:"J'ai rêvé sans raconter mon récit ;) ", 
+    date: formatDate(today), 
+    hour: today_for_analysis.substring(17,19),
+    minutes:today_for_analysis.substring(20,22),
+    day_in_week: today_for_analysis.substring(0,3),
+    day_in_month:today_for_analysis.substring(8,10),
+    month: today_for_analysis.substring(5,7),
+    year: today_for_analysis.substring(11,15),
+    tags:[],
+    location:"", 
+    characters:"", 
+    action:"",
+    rating: 2.5, 
+    lucidity:2.5,
+    sleepQuality:2.5, 
+    nightmare: false, 
+    recurrent: false, 
+    feeling:"", 
+    interpretation:"", 
+    lifeLink:""
   }
 }
+
+
 
 //
 //reducer addDream
@@ -89,6 +153,7 @@ const dreamReducer = (state = initialState, action) =>{
         const value = action.value[key]
         state.newDream[key] = value 
         
+        console.log(state)
         
         return state
     }

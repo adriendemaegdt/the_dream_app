@@ -27,9 +27,6 @@ function StackNewDream(props) {
 
     const data_dream_to_send = props.newDream.dreamReducer.newDream
 
-    // const handleSubmit = () => {
-    //     if (data_dream_to_send)
-    // }
 
                 // SEND NEW DREAM TO FIRESTORE
 

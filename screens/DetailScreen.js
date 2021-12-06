@@ -84,7 +84,7 @@ class DetailScreen extends React.Component {
             style={{flexGrow:1,height:'100%', backgroundColor:'#0F1538'}}
             behavior={Platform.OS === "ios" ? "position" : "height"} 
             automaticallyAdjustContentInsets={false} 
-            keyboardVerticalOffset={-200} >
+            keyboardVerticalOffset={35} >
             
                 <ScrollView 
                     contentContainerStyle={styles.container}>
@@ -237,15 +237,9 @@ class DetailScreen extends React.Component {
                         name='sleepQuality'
                         onChange = {this.saveInput.bind(this)}
                     ></SliderComponent>
-                    <View style= {{marginTop:40}}>
-                        <SwitchComponent 
-                        title = "Present dans le rêve: "
-                        name='presence'
-                        onChange = {this.saveInput.bind(this)}
+
+                    <View style= {{marginTop:40}}></View>
                         
-                    ></SwitchComponent>
-                    </View>
-                    
                     <SwitchComponent 
                         title = "Cauchemard: "
                         name='nightmare'

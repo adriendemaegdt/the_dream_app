@@ -58,7 +58,7 @@ this.saveInput('date',formatedDate)
         <KeyboardAvoidingView 
             style = {{flex:1,  backgroundColor:'#0F1538'}}
             behavior={Platform.OS === "ios" ? "position" : "position"}  
-            keyboardVerticalOffset={-200}>
+            keyboardVerticalOffset={35}>
             
             
 
